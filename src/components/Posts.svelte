@@ -12,7 +12,7 @@
     const postsRef = ref(db, 'posts');
     const orderedPostsRef = query(postsRef, orderByKey()); 
 
-    let posts: Array<Post> = null;
+    let posts: Array<Post> = [];
     onValue(orderedPostsRef, (snapshot) => {
         posts = Object.values(snapshot.val());
     });
