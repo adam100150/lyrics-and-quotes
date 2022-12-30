@@ -1,13 +1,29 @@
 <script lang="ts">
+    import { db } from '../database/firebase';
+    import { update, ref } from 'firebase/database';
     export let description: string;
     export let downvotes: number;
     export let quote: string;
     export let source: string;
     export let source_type: string;
     export let timestamp: Date;
+    export let uid: string;
     export let upvotes: number;
     export let userImageUrl: string;
     export let username: string;
+
+    var incrementUpvotes = function() {
+        let updates = {};
+        updates[`/posts/${uid}/upvotes`] = upvotes + 1;
+        update(ref(db), updates);
+    }
+
+    var incrementDownvotes = function() {
+        let updates = {};
+        updates[`/posts/${uid}/downvotes`] = downvotes + 1;
+        update(ref(db), updates);    
+    }
+
 </script>
 
 <div id='post_outline'>
@@ -18,14 +34,18 @@
     <h4 id='quote'>{quote}</h4>
     <p id='description'>{description}</p>
     <div id='upvotes_and_downvotes'>
-        <div id='up_arrow'><img src='https://cdn-icons-png.flaticon.com/512/2989/2989972.png' width='80%' height='30%' alt='up arrow'></div>
+        <button class='rating_buttons' on:click={incrementUpvotes}>
+            <img src='https://cdn-icons-png.flaticon.com/512/2989/2989972.png' alt='up arrow'>
+        </button>
         <div height='20%'>{upvotes - downvotes}</div>
-        <div id='down_arrow'><img src='https://cdn-icons-png.flaticon.com/512/2989/2989995.png' width='80%' height='30%' alt='down arrow'></div>
+        <button class='rating_buttons' height='30%' on:click={incrementDownvotes}>
+            <img src='https://cdn-icons-png.flaticon.com/512/2989/2989995.png' height='30%' alt='down arrow'>
+        </button>
     </div>
     <p id='source'>Source: {source}</p>
     
     {#if source_type=='Book'}
-        <div class='tag' id='book'>Book</div>s
+        <div class='tag' id='book'>Book</div>
     {:else if source_type=='Movie'}
         <div class='tag' id='movie'>Movie</div>
     {:else}
@@ -63,7 +83,7 @@
     }
 
     #description {
-        padding-left: 20%;
+        padding-left: 17%;
     }
 
     #upvotes_and_downvotes {
@@ -71,7 +91,19 @@
         top: 20%;
         left: 2%;
         width: 12%;
-        height: 5%;
+        height: 50%;
+    }
+
+    .rating_buttons img {
+        display: inline-block;
+        height: 30%;
+        width: 80%;
+    }
+
+    .rating_buttons {
+        background: white;
+        border: none;
+
     }
 
     #source {

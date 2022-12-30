@@ -10,5 +10,6 @@ export type Post = {
     source: string;
     source_type: string;
     timestamp: Date;
+    uid: string;
     upvotes: number;
 }
