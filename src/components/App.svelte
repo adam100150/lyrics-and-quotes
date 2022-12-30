@@ -23,13 +23,12 @@
 <main>
     {#if user}
         <Profile {...user}/>
-	    <button on:click={ () => auth.signOut() }>Logout</button>
+	    <button id='logout_button' on:click={ () => auth.signOut() }>Logout</button>
+        <Posts/>
     {:else}
         <h3>You are not logged in! Please login.</h3>
         <button on:click={login}>Signin with Google</button>
     {/if}
-
-    <Posts/>
 </main>
 
 <style>
@@ -45,4 +44,10 @@
 		text-transform: uppercase;
 		font-size: 1em;
 	}
+
+    #logout_button {
+        position: absolute;
+        top: 90%;
+        left: 7%;
+    }
 </style>
