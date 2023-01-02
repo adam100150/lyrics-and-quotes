@@ -2,26 +2,47 @@
     import { db } from '../database/firebase';
     import { update, ref } from 'firebase/database';
     export let description: string;
-    export let downvotes: number;
     export let quote: string;
     export let source: string;
     export let source_type: string;
     export let timestamp: Date;
     export let uid: string;
-    export let upvotes: number;
+    export let score: number;
     export let userImageUrl: string;
     export let username: string;
+    export let users_voted: Object;
+    export let user_uid: string;
 
-    var incrementUpvotes = function() {
+
+    var votePost = function (upvotePost: Boolean) {
+        console.log(users_voted);
+        console.log(user_uid);
+        if (users_voted.hasOwnProperty(user_uid)) {
+            console.log('You already voted this post.');
+            return;
+        }
+        console.log('Voting post...');
+
         let updates = {};
-        updates[`/posts/${uid}/upvotes`] = upvotes + 1;
+
+        if (upvotePost) {
+            updates[`/posts/${uid}/score`] = score + 1;
+        } else {
+            updates[`/posts/${uid}/score`] = score - 1;
+        }
+
+        users_voted[user_uid] = true;
+        updates[`posts/${uid}/users_voted/`] = users_voted;
+
         update(ref(db), updates);
     }
 
-    var incrementDownvotes = function() {
-        let updates = {};
-        updates[`/posts/${uid}/downvotes`] = downvotes + 1;
-        update(ref(db), updates);    
+    var upvote = function() {
+        votePost(true);        
+    }
+
+    var downvote = function() {
+        votePost(false); 
     }
 
 </script>
@@ -34,11 +55,11 @@
     <h4 id='quote'>{quote}</h4>
     <p id='description'>{description}</p>
     <div id='upvotes_and_downvotes'>
-        <button class='rating_buttons' on:click={incrementUpvotes}>
+        <button class='rating_buttons' on:click={upvote}>
             <img src='https://cdn-icons-png.flaticon.com/512/2989/2989972.png' alt='up arrow'>
         </button>
-        <div height='20%'>{upvotes - downvotes}</div>
-        <button class='rating_buttons' height='30%' on:click={incrementDownvotes}>
+        <div height='20%'>{score}</div>
+        <button class='rating_buttons' height='30%' on:click={downvote}>
             <img src='https://cdn-icons-png.flaticon.com/512/2989/2989995.png' height='30%' alt='down arrow'>
         </button>
     </div>
@@ -135,8 +156,5 @@
     p {
         text-align: left;
     }
-
-
-
 
 </style>

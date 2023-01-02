@@ -24,7 +24,7 @@
     {#if user}
         <Profile {...user}/>
 	    <button id='logout_button' on:click={ () => auth.signOut() }>Logout</button>
-        <Posts/>
+        <Posts user_uid={user.uid}/>
     {:else}
         <h3>You are not logged in! Please login.</h3>
         <button on:click={login}>Signin with Google</button>
