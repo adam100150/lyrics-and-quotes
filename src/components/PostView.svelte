@@ -4,35 +4,26 @@
     export let description: string;
     export let quote: string;
     export let source: string;
-    export let source_type: string;
+    export let sourceType: string;
     export let timestamp: Date;
-    export let uid: string;
+    export let postID: string;
     export let score: number;
     export let userImageUrl: string;
     export let username: string;
-    export let users_voted: Object;
-    export let user_uid: string;
+    export let usersVoted: Object;
+    export let ownerID: string;
 
-
+    console.log(`Source type: ${sourceType}`);
     var votePost = function (upvotePost: Boolean) {
-        console.log(users_voted);
-        console.log(user_uid);
-        if (users_voted.hasOwnProperty(user_uid)) {
-            console.log('You already voted this post.');
-            return;
-        }
-        console.log('Voting post...');
-
         let updates = {};
-
         if (upvotePost) {
-            updates[`/posts/${uid}/score`] = score + 1;
+            updates[`/posts/${postID}/score`] = score + 1;
         } else {
-            updates[`/posts/${uid}/score`] = score - 1;
+            updates[`/posts/${postID}/score`] = score - 1;
         }
 
-        users_voted[user_uid] = true;
-        updates[`posts/${uid}/users_voted/`] = users_voted;
+        usersVoted[ownerID] = true;
+        updates[`posts/${postID}/users_voted/`] = usersVoted;
 
         update(ref(db), updates);
     }
@@ -65,9 +56,9 @@
     </div>
     <p id='source'>Source: {source}</p>
     
-    {#if source_type=='Book'}
+    {#if sourceType=='Book'}
         <div class='tag' id='book'>Book</div>
-    {:else if source_type=='Movie'}
+    {:else if sourceType=='Movie'}
         <div class='tag' id='movie'>Movie</div>
     {:else}
         <div class='tag' id='tv_show'>TV Show</div>
