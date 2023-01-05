@@ -2,6 +2,7 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'; 
 
 const firebaseConfig = {
     apiKey: "AIzaSyCHL9UcT3TtvgQwt7N3DbLjRon9gKPFjA0",
@@ -25,3 +26,11 @@ export const auth = getAuth();
 
 // Initialize Google auth provider
 export const googleProvider = new GoogleAuthProvider();
+
+const appCheck = initializeAppCheck(app, {
+    provider: new ReCaptchaV3Provider('6LcJdNAjAAAAAPOAZQP3KzCPQ4ApHcUo6d6GThIF'),
+  
+    // Optional argument. If true, the SDK automatically refreshes App Check
+    // tokens as needed.
+    isTokenAutoRefreshEnabled: true
+  });
