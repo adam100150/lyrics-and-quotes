@@ -10,10 +10,7 @@
     export let score: number;
     export let userImageUrl: string;
     export let username: string;
-    export let usersVoted: Object;
-    export let ownerID: string;
 
-    console.log(`Source type: ${sourceType}`);
     var votePost = function (upvotePost: Boolean) {
         let updates = {};
         if (upvotePost) {
@@ -21,9 +18,6 @@
         } else {
             updates[`/posts/${postID}/score`] = score - 1;
         }
-
-        usersVoted[ownerID] = true;
-        updates[`posts/${postID}/users_voted/`] = usersVoted;
 
         update(ref(db), updates);
     }
@@ -49,8 +43,8 @@
         <button class='rating_buttons' on:click={upvote}>
             <img src='https://cdn-icons-png.flaticon.com/512/2989/2989972.png' alt='up arrow'>
         </button>
-        <div height='20%'>{score}</div>
-        <button class='rating_buttons' height='30%' on:click={downvote}>
+        <div style='height:20%'>{score}</div>
+        <button class='rating_buttons' on:click={downvote}>
             <img src='https://cdn-icons-png.flaticon.com/512/2989/2989995.png' height='30%' alt='down arrow'>
         </button>
     </div>

@@ -4,9 +4,7 @@
         ref, 
         query,
         orderByKey,
-        onValue,
-        onChildAdded,
-        child
+        onValue
     } from 'firebase/database'
     import PostView from './PostView.svelte';
     // import type { Post } from '../types';
