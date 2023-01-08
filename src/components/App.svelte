@@ -29,11 +29,11 @@
 <main>
     {#if user}
         <Profile {...user}/>
-	    <button class='button-9' id='logout_button' on:click={ () => auth.signOut() }>Logout</button>
+	    <button class='app-buttons' id='logout-button' on:click={ () => auth.signOut() }>Logout</button>
         {#if !showNewPostForm}
-            <button class='button-9' id='add_post_button' on:click={showNewPostFormFunc}>Add Post</button>
+            <button class='app-buttons' id='add-post-button' on:click={showNewPostFormFunc}>Add Post</button>
         {:else}
-            <form id='post_form' style="width:200%" action="" method="post">
+            <form id='post-form' style="width:200%" action="" method="post">
                 <ul>
                 <li>
                     <label for="name">Name:</label>
@@ -53,7 +53,7 @@
         <Posts />
     {:else}
         <h3>You are not logged in! Please login.</h3>
-        <button on:click={login}>Signin with Google</button>
+        <button class='app-buttons' on:click={login}>Signin with Google</button>
     {/if}
 </main>
 
@@ -66,23 +66,23 @@
 	}
 
 	h3 {
-		color: #ff3e00;
+		color: #000000;
 		text-transform: uppercase;
 		font-size: 1em;
 	}
 
-    #post_form {
+    #post-form {
         width: 100%;
     }
 
-    #logout_button {
+    #logout-button {
         position: absolute;
         top: 90%;
         left: 5%;
         width: 20%;
     }
 
-    #add_post_button {
+    #add-post-button {
         width: 200%;
     }
 </style>

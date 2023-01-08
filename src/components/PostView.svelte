@@ -32,19 +32,19 @@
 
 </script>
 
-<div id='post_outline'>
-    <div id='username_outline'>{username}</div>
-    <div id='pfp_outline'>
+<div class='feed-component-outline' id='post-outline'>
+    <div id='username-outline'>{username}</div>
+    <div id='pfp-outline'>
         <img src={userImageUrl} alt='user avatar' width=25% height=25%>
     </div>
     <h4 id='quote'>{quote}</h4>
     <p id='description'>{description}</p>
-    <div id='upvotes_and_downvotes'>
-        <button class='rating_buttons' on:click={upvote}>
+    <div id='upvotes-and-downvotes'>
+        <button class='rating-buttons' on:click={upvote}>
             <img src='https://cdn-icons-png.flaticon.com/512/2989/2989972.png' alt='up arrow'>
         </button>
         <div style='height:20%'>{score}</div>
-        <button class='rating_buttons' on:click={downvote}>
+        <button class='rating-buttons' on:click={downvote}>
             <img src='https://cdn-icons-png.flaticon.com/512/2989/2989995.png' height='30%' alt='down arrow'>
         </button>
     </div>
@@ -62,22 +62,19 @@
 </div>
 
 <style>
-    #post_outline {
+    #post-outline {
         position: relative;
-        border: 2px solid #000000;
-        border-radius: 5px;
-        width: 200%;
         margin-bottom: 10%;
     }
 
-    #username_outline {
+    #username-outline {
         position: absolute;
         top: 6%;
         left: 5%;
         margin-left: 10%;
     }
 
-    #pfp_outline {
+    #pfp-outline {
         position: absolute;
         top: 5%;
         left: 0%;
@@ -92,7 +89,7 @@
         padding-left: 17%;
     }
 
-    #upvotes_and_downvotes {
+    #upvotes-and-downvotes {
         position: absolute;
         top: 20%;
         left: 2%;
@@ -100,13 +97,13 @@
         height: 50%;
     }
 
-    .rating_buttons img {
+    .rating-buttons img {
         display: inline-block;
         height: 30%;
         width: 80%;
     }
 
-    .rating_buttons {
+    .rating-buttons {
         background: white;
         border: none;
 
