@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { db } from '../database/firebase';
-    import { update, ref } from 'firebase/database';
     import { createEventDispatcher } from 'svelte';
 
     export let description: string;
@@ -31,15 +29,6 @@
         });
 
     }
-
-    function upvote() {
-        votePost(true);        
-    }
-
-    function downvote() {
-        votePost(false); 
-    }
-
 </script>
 
 <div class='feed-component-outline'>
@@ -50,11 +39,11 @@
     <h4 id='quote'>{quote}</h4>
     <p id='description'>{description}</p>
     <div id='upvotes-and-downvotes'>
-        <button class='rating-buttons' on:click={upvote}>
+        <button class='rating-buttons' on:click={() => votePost(true)}>
             <img src='https://cdn-icons-png.flaticon.com/512/2989/2989972.png' alt='up arrow'>
         </button>
-        <div style='height:20%'>{score}</div>
-        <button class='rating-buttons' on:click={downvote}>
+        <div id='score'>{score}</div>
+        <button class='rating-buttons' on:click={() => votePost(false)}>
             <img src='https://cdn-icons-png.flaticon.com/512/2989/2989995.png' height='30%' alt='down arrow'>
         </button>
     </div>
@@ -101,39 +90,27 @@
         top: 20%;
         left: 2%;
         width: 12%;
-        height: 50%;
+        height: 35%;
+    }
+
+    #score {
+        vertical-align: top;
+        font-size: small;
     }
 
     .rating-buttons img {
-        display: inline-block;
-        height: 30%;
-        width: 80%;
+        /*display: inline-block;*/
+        height: 20%;
+        width: 70%;
     }
 
     .rating-buttons {
-        background: white;
+        background: none;
         border: none;
-
     }
 
     #source {
         margin-left: 5%;
-    }
-
-    #book {
-        background-color: rgba(243, 72, 72, 0.9);
-    }
-
-    #movie {
-        background-color: rgba(135, 240, 93, 0.9);
-    }
-
-    #tv-show {
-        background-color: rgba(83, 135, 230, 0.9);
-    }
-
-    #lyric {
-        background-color: rgba(230, 83, 218, 0.9);
     }
     
     h4 {

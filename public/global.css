@@ -62,10 +62,37 @@ a:visited {
   box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
 }
 
+.profile-app-buttons {
+  width: 80%;
+  margin: 5%;
+  height: 9%;
+}
+
 .feed-component-outline {
 	border: 2px solid #000000;
 	border-radius: 5px;
 	width: 200%;
   position: relative;
   margin-bottom: 10%;
+}
+
+#book {
+  background-color: rgba(243, 72, 72, 0.9);
+  color: #000000;
+}
+
+#movie {
+  background-color: rgba(135, 240, 93, 0.9);
+  color: #000000;
+}
+
+#tv-show {
+  background-color: rgba(83, 135, 230, 0.9);
+  color: #000000;
+}
+
+#lyric {
+  background-color: rgba(230, 83, 218, 0.9);
+  color: #000000;
+
 }
