@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { db } from '../database/firebase';
+    import { db, postListRef } from '../database/firebase';
     import { 
         ref, 
         query,
@@ -9,8 +9,7 @@
     import PostView from './PostView.svelte';
     // import type { Post } from '../types';
 
-    const postsRef = ref(db, 'posts');
-    const orderedPostsRef = query(postsRef, orderByKey()); 
+    const orderedPostsRef = query(postListRef, orderByKey()); 
 
     
     let postViewDataEntries = [];

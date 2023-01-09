@@ -1,48 +1,70 @@
 <script>
+    import { postListRef } from '../database/firebase';
+    import { set, push } from 'firebase/database'; 
+    let quote;
+    let description;
+    let source;
+    let sourceType;
+    export let userID;
+
+    let addPost = function() {
+        const currentDate = new Date(Date.now());
+        
+        let newPostData = {
+            'quote': quote,
+            'description': description,
+            'ownerID': userID,
+            'source': source,
+            'sourceType': sourceType,
+            'score': 0,
+            'timestamp': `${currentDate.toDateString()} ${currentDate.toLocaleTimeString()}`,
+            'usersVoted': { }
+        }    
+
+        const newPostRef = push(postListRef);
+        set(newPostRef, newPostData);
+    };
 
 </script>
 
 <div class='feed-component-outline'>
-    <form action='/my-handling-form-page' method='post'>
+    <div id='form-outline'>
         <ul>
-          <li>
-            <label for='quote'>Quote:</label>
-            <textarea placeholder='The way to get started is to quit talking and begin doing.' cols=40 class='input-fields'></textarea>
-          </li>
-          <li>
+            <li>
+                <label for='quote'>Quote:</label>
+                <textarea bind:value={quote} placeholder='The way to get started is to quit talking and begin doing.' cols=40 class='input-fields'></textarea>
+            </li>
+            <li>
             <label for='description'>Description:</label>
-            <textarea placeholder='I like this quote because...' cols=40 class='input-fields'></textarea>
-          </li>
-          <li>
-            <label for='source'>Source:</label>
-            <input class='input-fields' size=40 type='text' placeholder='Walt Disney'>
-          </li>
-          <li>
-            <label id='select-label' for='source-type'>Source Type:</label>
-            <select id='select-item' class='input-fields'>
-                <option value='movie'>Movie</option>
-                <option value='book'>Book</option>
-                <option value='lyric'>Lyric</option>
-            </select>
-          </li>
+                <textarea bind:value={description} placeholder='I like this quote because...' cols=40 class='input-fields'></textarea>
+            </li>
+            <li>
+                <label for='source'>Source:</label>
+                <input bind:value={source} class='input-fields' size=40 type='text' placeholder='Walt Disney'>
+            </li>
+            <li>
+                <label id='select-label' for='source-type'>Source Type:</label>
+                <select bind:value={sourceType} id='select-item' class='input-fields'>
+                    <option value='movie'>Movie</option>
+                    <option value='book'>Book</option>
+                    <option value='lyric'>Lyric</option>
+                </select>
+            </li>
         </ul>
-        <button class='app-buttons' id='submit-button' type='submit'>Submit</button>
+        <button class='app-buttons' id='submit-button' on:click={addPost}>Add Post</button>
         <button class='app-buttons' id='cancel-button'>Cancel</button>
-      </form>
-      
+    </div>
 </div>
 
 <style>
     #select-item {
-        float: left;
-        margin-left: 3%;
+        margin-right: 53%;
     }
 
     #submit-button {
         width: 30%;
         height: 30px;
         background-color: rgb(42, 192, 8);
-        display: inline-block;
         margin-right: 30%;
     }
 
@@ -53,27 +75,17 @@
         display: inline-block;
     }
 
-    form {
-        /* Center the form on the page */
-        margin: 0 auto;
-        width: 400px;
-        /* Form outline */
-        padding: 1em;
-    }
-
+    #form-outline {
+        padding: 5%;
+    } 
     ul {
         list-style: none;
         padding: 0;
         margin: 0;
     }
 
-    form li + li {
-        margin-top: 1em;
-    }
-
     label {
         /* Uniform size & alignment */
-        display: inline-block;
         width: 80px;
         text-align: right;
         font-size: small;

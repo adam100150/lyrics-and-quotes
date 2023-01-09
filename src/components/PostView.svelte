@@ -11,7 +11,7 @@
     export let userImageUrl: string;
     export let username: string;
 
-    var votePost = function (upvotePost: Boolean) {
+    let votePost = function (upvotePost: Boolean) {
         let updates = {};
         if (upvotePost) {
             updates[`/posts/${postID}/score`] = score + 1;
@@ -22,11 +22,11 @@
         update(ref(db), updates);
     }
 
-    var upvote = function() {
+    let upvote = function() {
         votePost(true);        
     }
 
-    var downvote = function() {
+    let downvote = function() {
         votePost(false); 
     }
 

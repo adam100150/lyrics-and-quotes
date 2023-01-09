@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getDatabase } from 'firebase/database';
+import { getDatabase, ref } from 'firebase/database';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check'; 
 
@@ -18,6 +18,15 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+// App Check (reCAPTCHA)
+const appCheck = initializeAppCheck(app, {
+    provider: new ReCaptchaV3Provider('6LcJdNAjAAAAAPOAZQP3KzCPQ4ApHcUo6d6GThIF'),
+  
+    // Optional argument. If true, the SDK automatically refreshes App Check
+    // tokens as needed.
+    isTokenAutoRefreshEnabled: true
+});
+
 // Initialize Realtime Database and get a reference to the service
 export const db = getDatabase(app);
 
@@ -27,10 +36,5 @@ export const auth = getAuth();
 // Initialize Google auth provider
 export const googleProvider = new GoogleAuthProvider();
 
-const appCheck = initializeAppCheck(app, {
-    provider: new ReCaptchaV3Provider('6LcJdNAjAAAAAPOAZQP3KzCPQ4ApHcUo6d6GThIF'),
-  
-    // Optional argument. If true, the SDK automatically refreshes App Check
-    // tokens as needed.
-    isTokenAutoRefreshEnabled: true
-  });
+// Export common references
+export const postListRef = ref(db, 'posts');

@@ -21,7 +21,7 @@
     });
 
     let showNewPostForm: Boolean = false;
-    var showNewPostFormFunc = function() {
+    let showNewPostFormFunc = function() {
         showNewPostForm = true;
     }
 
@@ -34,7 +34,7 @@
         {#if !showNewPostForm}
             <button class='app-buttons' id='add-post-button' on:click={showNewPostFormFunc}>Add Post</button>
         {:else}
-            <PostForm />
+            <PostForm userID={user.uid}/>
         {/if}
         <Posts />
     {:else}
