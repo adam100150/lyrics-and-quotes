@@ -18,7 +18,6 @@
     let user;
     authState(auth).subscribe((u) => {
         user = u
-        console.log(user);
     });
 
     let showNewPostForm: Boolean = false;
@@ -26,12 +25,11 @@
         showNewPostForm = !showNewPostForm;
     }
 
-
 </script>
 
 <main>
     {#if user}
-        <Profile {...user}/>
+        <Profile {...user} />
 	    <button class='app-buttons' id='logout-button' on:click={ () => auth.signOut() }>Logout</button>
         {#if !showNewPostForm}
             <button class='app-buttons' id='add-post-button' on:click={toggleShowNewPostForm}>Add Post</button>

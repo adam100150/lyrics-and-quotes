@@ -1,18 +1,18 @@
-<script>
-    import { createEventDispatcher } from 'svelte';
-    const dispatch = createEventDispatcher();
-    
-    export let displayName;
-    export let photoURL;
+<script lang="ts">
+    import { filterTypeWritable } from '../stores';
+
+    export let displayName: string;
+    export let photoURL: string;
+
 </script>
 
 <div>
     <h4>Hello {displayName}</h4>
     <img src={photoURL} referrerpolicy='no-referrer' width=100 alt='user avatar' >
-    <button class='app-buttons profile-app-buttons' id='movie'>Movies</button>
-    <button class='app-buttons profile-app-buttons' id='tv-show'>TV Shows</button>
-    <button class='app-buttons profile-app-buttons' id='book'>Books</button>
-    <button class='app-buttons profile-app-buttons' id='lyric'>Lyrics</button>
+    <button class='app-buttons profile-app-buttons' id='movie' on:click={() => filterTypeWritable.set('Movie')}>Movies</button>
+    <button class='app-buttons profile-app-buttons' id='tv-show' on:click={() => filterTypeWritable.set('TVShow')}>TV Shows</button>
+    <button class='app-buttons profile-app-buttons' id='book' on:click={() => filterTypeWritable.set('Book')}>Books</button>
+    <button class='app-buttons profile-app-buttons' id='lyric' on:click={() => filterTypeWritable.set('Lyric')}>Lyrics</button>
 </div>
 
 <style>
