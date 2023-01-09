@@ -32,11 +32,11 @@
 
     }
 
-    let upvote = function() {
+    function upvote() {
         votePost(true);        
     }
 
-    let downvote = function() {
+    function downvote() {
         votePost(false); 
     }
 

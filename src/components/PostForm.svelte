@@ -7,7 +7,7 @@
     let sourceType;
     export let userID;
 
-    let addPost = function() {
+    function addPost() {
         const currentDate = new Date(Date.now());
         
         let newPostData = {

@@ -47,8 +47,8 @@
 
 </script>
 
-<p>
+<div>
     {#each postViewDataEntries as postViewData}
         <PostView on:votePostEvent={handleVotePost} {...postViewData} />
     {/each}
-</p>
+</div>
