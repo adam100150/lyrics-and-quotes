@@ -17,8 +17,7 @@
             'source': source,
             'sourceType': sourceType,
             'score': 0,
-            'timestamp': `${currentDate.toDateString()} ${currentDate.toLocaleTimeString()}`,
-            'usersVoted': { }
+            'timestamp': `${currentDate.toDateString()} ${currentDate.toLocaleTimeString()}`
         }    
 
         const newPostRef = push(postListRef);

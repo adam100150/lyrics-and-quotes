@@ -1,6 +1,8 @@
 <script lang="ts">
     import { db } from '../database/firebase';
     import { update, ref } from 'firebase/database';
+    import { createEventDispatcher } from 'svelte';
+
     export let description: string;
     export let quote: string;
     export let source: string;
@@ -11,15 +13,23 @@
     export let userImageUrl: string;
     export let username: string;
 
-    let votePost = function (upvotePost: Boolean) {
-        let updates = {};
+    const dispatch = createEventDispatcher();
+
+
+    function votePost (upvotePost: Boolean) {
+        console.log(`Voting post ${upvotePost}`);
+        let newScore: number;
         if (upvotePost) {
-            updates[`/posts/${postID}/score`] = score + 1;
+            newScore = score + 1;
         } else {
-            updates[`/posts/${postID}/score`] = score - 1;
+            newScore = score - 1;
         }
 
-        update(ref(db), updates);
+        dispatch('votePostEvent', {
+            'postID': postID,
+            'newScore': newScore
+        });
+
     }
 
     let upvote = function() {

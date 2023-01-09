@@ -18,12 +18,14 @@
     let user;
     authState(auth).subscribe((u) => {
         user = u
+        console.log(user);
     });
 
     let showNewPostForm: Boolean = false;
     let showNewPostFormFunc = function() {
         showNewPostForm = true;
     }
+
 
 </script>
 
@@ -36,7 +38,7 @@
         {:else}
             <PostForm userID={user.uid}/>
         {/if}
-        <Posts />
+        <Posts userID={user.uid}/>
     {:else}
         <h3>You are not logged in! Please login.</h3>
         <button class='app-buttons' on:click={login}>Signin with Google</button>
