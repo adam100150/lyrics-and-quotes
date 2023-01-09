@@ -4,6 +4,7 @@
     import { signInWithPopup } from 'firebase/auth' 
     import Profile from './Profile.svelte';
     import Posts from './Posts.svelte';
+    import PostForm from './PostForm.svelte';
 
     function login() {
         signInWithPopup(auth, googleProvider).catch((error) => {
@@ -33,22 +34,7 @@
         {#if !showNewPostForm}
             <button class='app-buttons' id='add-post-button' on:click={showNewPostFormFunc}>Add Post</button>
         {:else}
-            <form id='post-form' style="width:200%" action="" method="post">
-                <ul>
-                <li>
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="user_name" />
-                </li>
-                <li>
-                    <label for="mail">Email:</label>
-                    <input type="email" id="mail" name="user_email" />
-                </li>
-                <li>
-                    <label for="msg">Message:</label>
-                    <textarea id="msg" name="user_message"></textarea>
-                </li>
-                </ul>
-            </form>
+            <PostForm />
         {/if}
         <Posts />
     {:else}
@@ -66,14 +52,9 @@
 	}
 
 	h3 {
-		color: #000000;
 		text-transform: uppercase;
 		font-size: 1em;
 	}
-
-    #post-form {
-        width: 100%;
-    }
 
     #logout-button {
         position: absolute;
