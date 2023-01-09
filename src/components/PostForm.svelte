@@ -15,11 +15,11 @@
           </li>
           <li>
             <label for='source'>Source:</label>
-            <input class='input-fields' type='text' placeholder='Walt Disney'>
+            <input class='input-fields' size=40 type='text' placeholder='Walt Disney'>
           </li>
           <li>
             <label id='select-label' for='source-type'>Source Type:</label>
-            <select class='input-fields'>
+            <select id='select-item' class='input-fields'>
                 <option value='movie'>Movie</option>
                 <option value='book'>Book</option>
                 <option value='lyric'>Lyric</option>
@@ -33,8 +33,9 @@
 </div>
 
 <style>
-    #select-label {
-        width: 100px;
+    #select-item {
+        float: left;
+        margin-left: 3%;
     }
 
     #submit-button {
@@ -73,9 +74,10 @@
     label {
         /* Uniform size & alignment */
         display: inline-block;
-        width: 75px;
+        width: 80px;
         text-align: right;
         font-size: small;
+        float: left;
     }
 
     .input-fields {
