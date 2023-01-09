@@ -42,7 +42,7 @@
 
 </script>
 
-<div class='feed-component-outline' id='post-outline'>
+<div class='feed-component-outline'>
     <div id='username-outline'>{username}</div>
     <div id='pfp-outline'>
         <img src={userImageUrl} alt='user avatar' width=25% height=25%>
@@ -60,23 +60,20 @@
     </div>
     <p id='source'>Source: {source}</p>
     
-    {#if sourceType=='Book'}
+    {#if sourceType==='Book'}
         <div class='tag' id='book'>Book</div>
-    {:else if sourceType=='Movie'}
+    {:else if sourceType==='Movie'}
         <div class='tag' id='movie'>Movie</div>
+    {:else if sourceType==='TVShow'}
+        <div class='tag' id='tv-show'>TV Show</div>
     {:else}
-        <div class='tag' id='tv_show'>TV Show</div>
+        <div class='tag' id='lyric'>Lyric</div>
     {/if}
 
     {timestamp}
 </div>
 
 <style>
-    #post-outline {
-        position: relative;
-        margin-bottom: 10%;
-    }
-
     #username-outline {
         position: absolute;
         top: 6%;
@@ -131,8 +128,12 @@
         background-color: rgba(135, 240, 93, 0.9);
     }
 
-    #tv_show {
+    #tv-show {
         background-color: rgba(83, 135, 230, 0.9);
+    }
+
+    #lyric {
+        background-color: rgba(230, 83, 218, 0.9);
     }
     
     h4 {

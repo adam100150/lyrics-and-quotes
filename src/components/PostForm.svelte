@@ -1,11 +1,15 @@
 <script>
     import { postListRef } from '../database/firebase';
     import { set, push } from 'firebase/database'; 
+    import { createEventDispatcher } from 'svelte';
+
     let quote;
     let description;
     let source;
     let sourceType;
     export let userID;
+
+    const dispatch = createEventDispatcher();
 
     function addPost() {
         const currentDate = new Date(Date.now());
@@ -22,6 +26,8 @@
 
         const newPostRef = push(postListRef);
         set(newPostRef, newPostData);
+
+        dispatch('formFinished');
     };
 
 </script>
@@ -44,14 +50,15 @@
             <li>
                 <label id='select-label' for='source-type'>Source Type:</label>
                 <select bind:value={sourceType} id='select-item' class='input-fields'>
-                    <option value='movie'>Movie</option>
-                    <option value='book'>Book</option>
-                    <option value='lyric'>Lyric</option>
+                    <option value='Movie'>Movie</option>
+                    <option value='Book'>Book</option>
+                    <option value='TVShow'>TV Show</option>
+                    <option value='Lyric'>Lyric</option>
                 </select>
             </li>
         </ul>
         <button class='app-buttons' id='submit-button' on:click={addPost}>Add Post</button>
-        <button class='app-buttons' id='cancel-button'>Cancel</button>
+        <button class='app-buttons' id='cancel-button' on:click={() => dispatch('formFinished')}>Cancel</button>
     </div>
 </div>
 

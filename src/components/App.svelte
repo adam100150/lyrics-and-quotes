@@ -22,8 +22,8 @@
     });
 
     let showNewPostForm: Boolean = false;
-    let showNewPostFormFunc = function() {
-        showNewPostForm = true;
+    function toggleShowNewPostForm() {
+        showNewPostForm = !showNewPostForm;
     }
 
 
@@ -34,9 +34,9 @@
         <Profile {...user}/>
 	    <button class='app-buttons' id='logout-button' on:click={ () => auth.signOut() }>Logout</button>
         {#if !showNewPostForm}
-            <button class='app-buttons' id='add-post-button' on:click={showNewPostFormFunc}>Add Post</button>
+            <button class='app-buttons' id='add-post-button' on:click={toggleShowNewPostForm}>Add Post</button>
         {:else}
-            <PostForm userID={user.uid}/>
+            <PostForm on:formFinished={toggleShowNewPostForm} userID={user.uid}/>
         {/if}
         <Posts userID={user.uid}/>
     {:else}
