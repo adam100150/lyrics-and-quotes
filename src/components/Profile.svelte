@@ -10,7 +10,7 @@
     <h4>Hello {displayName}</h4>
     <img src={photoURL} referrerpolicy='no-referrer' alt='user avatar' >
     <button class='app-buttons profile-app-buttons' id='movie' on:click={() => filterTypeWritable.set('Movie')}>Movies</button>
-    <button class='app-buttons profile-app-buttons' id='tv-show' on:click={() => filterTypeWritable.set('TVShow')}>TV Shows</button>
+    <button class='app-buttons profile-app-buttons' id='tv-show' on:click={() => filterTypeWritable.set('TV')}>TV Shows</button>
     <button class='app-buttons profile-app-buttons' id='book' on:click={() => filterTypeWritable.set('Book')}>Books</button>
     <button class='app-buttons profile-app-buttons' id='lyric' on:click={() => filterTypeWritable.set('Lyric')}>Lyrics</button>
 </div>

@@ -8,8 +8,11 @@ export type Post = {
     downvotes: number;
     quote: string;
     source: string;
-    source_type: string;
+    sourceType: string;
     timestamp: Date;
-    uid: string;
-    upvotes: number;
+    ownerID: string;
+    score: number;
+    postID: string;
+    username: string;
+    userImageUrl: string;
 }

@@ -53,7 +53,7 @@
         <div class='tag' id='book'>Book</div>
     {:else if sourceType==='Movie'}
         <div class='tag' id='movie'>Movie</div>
-    {:else if sourceType==='TVShow'}
+    {:else if sourceType==='TV'}
         <div class='tag' id='tv-show'>TV Show</div>
     {:else}
         <div class='tag' id='lyric'>Lyric</div>
