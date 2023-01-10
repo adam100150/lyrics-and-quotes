@@ -105,7 +105,8 @@
     }
 
     #description {
-        padding-left: 17%;
+        padding-left: 15%;
+        
     }
 
     #upvotes-and-downvotes {

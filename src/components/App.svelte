@@ -73,7 +73,7 @@
     }
 
     #add-post-button {
-        width: 200%;
+        width: 500px;
         margin-bottom: 10%;
     }
 </style>
