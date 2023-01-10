@@ -2,7 +2,7 @@
     import { db } from '../database/firebase';
     import { ref, onValue, update} from 'firebase/database'
     import PostView from './PostView.svelte';
-    import { postsRef, filterTypeWritable } from '../stores';
+    import { postsRef, filterWritable } from '../stores';
     import type { Post } from '../types';
     
     export let userID: string;
@@ -47,12 +47,32 @@
 
 <div>
     {#if postViewDataEntries.length === 0}
-        <h4>
-            Sorry, no {$filterTypeWritable} posts
-        </h4>
+        {#if $filterWritable.filterKey === 'sourceType'}
+            <h4>
+                Sorry no {$filterWritable.filterValue} posts
+            </h4>
+        {:else if $filterWritable.filterKey === 'ownerID'}
+            <h4>
+                You haven't posted anything yet
+            </h4>
+        {:else}
+            <h4>
+                You don't have any saved posts
+            </h4>
+        {/if}
     {:else}
         {#each postViewDataEntries as postViewData}
             <PostView on:votePostEvent={handleVotePost} {...postViewData} />
         {/each}
     {/if}
 </div>
+
+<style>
+    div {
+        width: 200%;
+    }
+
+    h4 {
+        text-align: center;
+    }
+</style>

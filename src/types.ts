@@ -16,3 +16,8 @@ export type Post = {
     username: string;
     userImageUrl: string;
 }
+
+export type filter = {
+    filterKey: string;
+    filterValue: string;
+}

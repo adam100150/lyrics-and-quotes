@@ -71,7 +71,6 @@ a:visited {
 .feed-component-outline {
 	border: 2px solid #000000;
 	border-radius: 5px;
-	width: 200%;
   position: relative;
   margin-bottom: 10%;
 }
