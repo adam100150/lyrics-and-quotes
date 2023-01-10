@@ -99,7 +99,6 @@
     }
 
     .rating-buttons img {
-        /*display: inline-block;*/
         height: 20%;
         width: 70%;
     }

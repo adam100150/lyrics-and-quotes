@@ -8,7 +8,7 @@
 
 <div>
     <h4>Hello {displayName}</h4>
-    <img src={photoURL} referrerpolicy='no-referrer' width=100 alt='user avatar' >
+    <img src={photoURL} referrerpolicy='no-referrer' alt='user avatar' >
     <button class='app-buttons profile-app-buttons' id='movie' on:click={() => filterTypeWritable.set('Movie')}>Movies</button>
     <button class='app-buttons profile-app-buttons' id='tv-show' on:click={() => filterTypeWritable.set('TVShow')}>TV Shows</button>
     <button class='app-buttons profile-app-buttons' id='book' on:click={() => filterTypeWritable.set('Book')}>Books</button>
@@ -19,7 +19,6 @@
     div {
         width: 20%;
         position: absolute;
-        height: 80%;
         top: 5%;
         left: 5%;
         border: 2px solid #000000;
@@ -27,7 +26,8 @@
     }
 
     img {
-        border-radius: 5px;
+        border-radius: 10px;
         margin-bottom: 5%;
+        width: 40%;
     }
 </style>
