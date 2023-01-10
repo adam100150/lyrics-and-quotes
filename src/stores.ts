@@ -5,7 +5,7 @@ import { postListRef } from './database/firebase';
 export const filterTypeWritable = writable('');
 
 export const postsRef = derived(filterTypeWritable, $filterTypeWritable => {
-    console.log(`${$filterTypeWritable}`);
+    console.log(`Filter type: ${$filterTypeWritable}`);
     if ($filterTypeWritable === '') {
         return query(postListRef, orderByKey());
     }
