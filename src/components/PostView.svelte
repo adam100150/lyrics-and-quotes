@@ -38,6 +38,9 @@
     </div>
     <h4 id='quote'>{quote}</h4>
     <p id='description'>{description}</p>
+    <button id='save-button'>
+        <img src='https://freepngimg.com/download/instagram/60239-like-icons-bookmark-button-computer-facebook-instagram.png' alt='save post button'>
+    </button>
     <div id='upvotes-and-downvotes'>
         <button class='rating-buttons' on:click={() => votePost(true)}>
             <img src='https://cdn-icons-png.flaticon.com/512/2989/2989972.png' alt='up arrow'>
@@ -63,6 +66,22 @@
 </div>
 
 <style>
+    #save-button {
+        position: absolute;
+        top: 0%;
+        right: 5%;
+        width: 10%;
+        height: 20%;
+        background-color: white;
+        border: none;
+    }
+
+    #save-button img {
+        width: 25px;
+        height: 30px;
+    }
+
+
     #username-outline {
         position: absolute;
         top: 6%;
@@ -86,11 +105,11 @@
     }
 
     #upvotes-and-downvotes {
-        position: absolute;
+        position: absolute;  
         top: 20%;
         left: 2%;
-        width: 12%;
-        height: 35%;
+        width: 50px;
+        height: 75px;
     }
 
     #score {
