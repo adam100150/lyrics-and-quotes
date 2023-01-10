@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { onValue, ref } from 'firebase/database';
     import { createEventDispatcher } from 'svelte';
 
     export let description: string;
@@ -27,8 +28,8 @@
             'postID': postID,
             'newScore': newScore
         });
-
     }
+
 </script>
 
 <div class='feed-component-outline'>
@@ -38,6 +39,8 @@
     </div>
     <h4 id='quote'>{quote}</h4>
     <p id='description'>{description}</p>
+
+
     <button id='save-button'>
         <img src='https://freepngimg.com/download/instagram/60239-like-icons-bookmark-button-computer-facebook-instagram.png' alt='save post button'>
     </button>
@@ -72,6 +75,7 @@
         right: 5%;
         width: 10%;
         height: 20%;
+        background-image: 'https://freepngimg.com/download/instagram/60239-like-icons-bookmark-button-computer-facebook-instagram.png';
         background-color: white;
         border: none;
     }

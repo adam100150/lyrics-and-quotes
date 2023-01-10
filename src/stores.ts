@@ -6,7 +6,6 @@ import type { filter } from './types';
 export const filterWritable: Writable<filter> = writable({filterKey:'',filterValue:''});
 
 export const postsRef = derived(filterWritable, $filterWritable => {
-    console.log(`Filter type: ${JSON.stringify($filterWritable)}`);
     if (JSON.stringify($filterWritable) === '{"filterKey":"","filterValue":""}') {
         return query(postListRef, orderByKey());
     }

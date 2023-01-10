@@ -5,6 +5,8 @@
     import Profile from './Profile.svelte';
     import Posts from './Posts.svelte';
     import PostForm from './PostForm.svelte';
+    import { ref, set } from 'firebase/database';
+    import { db } from '../database/firebase';
 
     function login() {
         signInWithPopup(auth, googleProvider).catch((error) => {
@@ -18,6 +20,13 @@
     let user;
     authState(auth).subscribe((u) => {
         user = u
+        console.log(`Signing in user with ID: ${u.uid}`);
+        const userRef = ref(db, `users/${u.uid}`);
+        let userData = {
+            userImageUrl: `${u.photoURL}`,
+            username: `${u.displayName}`
+        };
+        set(userRef, userData);
     });
 
     let showNewPostForm: Boolean = false;

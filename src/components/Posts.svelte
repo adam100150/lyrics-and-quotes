@@ -20,15 +20,13 @@
     }
     
     let postViewDataEntries: Array<Post>;
-    
+
     // Run this code block again upon change in any references
     $: {
         postViewDataEntries = [];
         onValue($postsRef, (snapshot) => {  
             let postDataList = [];
-            console.log('Running listener again');
             snapshot.forEach((childSnapshot) => {
-                console.log(`Children in the current reference ${JSON.stringify(snapshot.val())}`);
                 let postEntry = childSnapshot.val();
                 postEntry['postID'] = childSnapshot.key;
                 const ownerDataRef = ref(db, `users/${postEntry.ownerID}`);
@@ -42,6 +40,15 @@
             });        
         });
     }
+
+    const userSavedPostsRef = ref(db, `users/${userID}/savedPosts`);
+    // console.log(userID);
+    onValue(userSavedPostsRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            console.log(childSnapshot.val());
+            // let userPostID = snapshot.val();
+        });
+    });
 
 </script>
 
