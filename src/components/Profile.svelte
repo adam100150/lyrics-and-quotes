@@ -16,6 +16,7 @@
     <button class='app-buttons profile-app-buttons' id='lyric' on:click={() => filterWritable.set({filterKey: 'sourceType', filterValue:'Lyric'})}>Lyrics</button>
     <button class='app-buttons profile-app-buttons' style="height: 30px" on:click={() => filterWritable.set({filterKey: 'ownerID', filterValue:`${uid}`})}>My Posts</button>
     <button class='app-buttons profile-app-buttons' style="height: 30px" on:click={() => filterWritable.set({filterKey: 'savedByCurrUser', filterValue: 'true'})}>Saved Posts</button>
+    <button class='app-buttons profile-app-buttons' style="height: 30px" on:click={() => filterWritable.set({filterKey: '', filterValue: ''})}>Reset Filter</button>
     <button class='app-buttons profile-app-buttons' style="height: 30px" id='logout-button' on:click={ () => auth.signOut() }>Logout</button>
 </div>
 
