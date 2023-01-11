@@ -1,6 +1,6 @@
 <script lang="ts">
     import { db } from '../database/firebase';
-    import { ref, onValue, update, remove } from 'firebase/database'
+    import { ref, onValue, update, remove, get } from 'firebase/database'
     import PostView from './PostView.svelte';
     import { postsRef, filterWritable } from '../stores';
     import type { Post } from '../types';
@@ -39,10 +39,9 @@
     // Run this code block again upon change in any references
     $: {
         postViewDataEntries = [];
-        
         // Getting all posts data
         onValue($postsRef, (snapshot) => {  
-            let postDataList = [];
+            let postDataList: Array<Post> = [];
 
             // For each post
             snapshot.forEach((childSnapshot) => {
@@ -50,14 +49,19 @@
                 postEntry['postID'] = childSnapshot.key;
                 const userSavedPostsRef = ref(db, `users/${userID}`);
                 onValue(userSavedPostsRef, (snapshot) => {
+                    let newPostEntry = postEntry;
                     if (snapshot.val() !== null && snapshot.val().hasOwnProperty(postEntry.postID)) {
-                        postEntry['savedByCurrUser'] = true;
+                        newPostEntry['savedByCurrUser'] = true;
                     } else {
-                        postEntry['savedByCurrUser'] = false;
+                        newPostEntry['savedByCurrUser'] = false;
                     }                    
-
-                    // Finally, add post data to the post entry list
-                    postDataList.push(postEntry);
+                    
+                    if (postDataList.includes(postEntry)) {
+                        postDataList[postDataList.indexOf(postEntry)] = newPostEntry;
+                    } else {
+                        console.log('Adding post entry');
+                        postDataList.push(postEntry);
+                    }
                     postViewDataEntries = postDataList;
                 });
                 

@@ -61,7 +61,7 @@
                 <select style="text-align:center" bind:value={sourceType} class='input-fields'>
                     <option value='Movie'>Movie</option>
                     <option value='Book'>Book</option>
-                    <option value='TVShow'>TV Show</option>
+                    <option value='TV'>TV Show</option>
                     <option value='Lyric'>Lyric</option>
                 </select>
             </li>
