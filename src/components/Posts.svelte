@@ -53,11 +53,11 @@
                 
                 // After you retreived the post information, get the owner's information
                 onValue(ownerDataRef, (snapshot) => {
-                    postEntry['username'] = snapshot.val().username;
-                    postEntry['userImageUrl'] = snapshot.val().userImageUrl;
+                    postEntry['ownerUsername'] = snapshot.val().username;
+                    postEntry['ownerImageURL'] = snapshot.val().userImageUrl;
                     
                     // After you retreived the owner's information, check if the current post was saved by the current user
-                    const userSavedPostsRef = ref(db, `users/${userID}/savedPosts`);
+                    const userSavedPostsRef = ref(db, `users/${userID}`);
                     onValue(userSavedPostsRef, (snapshot) => {
                         if (snapshot.val() !== null && snapshot.val().hasOwnProperty(postEntry.postID)) {
                             postEntry['savedByCurrUser'] = true;

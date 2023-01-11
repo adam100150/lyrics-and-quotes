@@ -9,8 +9,8 @@
     export let timestamp: Date;
     export let postID: string;
     export let score: number;
-    export let userImageUrl: string;
-    export let username: string;
+    export let ownerImageURL: string;
+    export let ownerUsername: string;
     export let savedByCurrUser: boolean;
 
     const dispatch = createEventDispatcher();
@@ -42,9 +42,9 @@
 </script>
 
 <div class='feed-component-outline'>
-    <div id='username-outline'>{username}</div>
+    <div id='username-outline'>{ownerUsername}</div>
     <div id='pfp-outline'>
-        <img src={userImageUrl} alt='user avatar' width=25% height=25%>
+        <img src={ownerImageURL} alt='user avatar' width=25% height=25%>
     </div>
     <h4 id='quote'>{quote}</h4>
     <p id='description'>{description}</p>

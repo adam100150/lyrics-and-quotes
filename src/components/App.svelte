@@ -1,7 +1,7 @@
 <script lang="ts">
     import { auth, googleProvider } from '../database/firebase';
     import { authState } from 'rxfire/auth';
-    import { signInWithPopup } from 'firebase/auth' 
+    import { signInWithPopup, User } from 'firebase/auth' 
     import Profile from './Profile.svelte';
     import Posts from './Posts.svelte';
     import PostForm from './PostForm.svelte';
@@ -17,16 +17,19 @@
         });
     }
 
-    let user;
-    authState(auth).subscribe((u) => {
+    let user: User;
+    authState(auth).subscribe((u: User) => {
         user = u
-        console.log(`Signing in user with ID: ${u.uid}`);
-        const userRef = ref(db, `users/${u.uid}`);
-        let userData = {
-            userImageUrl: `${u.photoURL}`,
-            username: `${u.displayName}`
-        };
-        set(userRef, userData);
+        console.log(`Signing in user with ID: ${u.uid} and adding user ID to database`);
+        const usersRef = ref(db, `users`);
+        let userData: Array<string> = [];
+        set(usersRef, userData)
+        .catch(() => {
+            console.error('User was not added to database. Invalidating user authentication'); 
+            user = null;
+        }).then(() => {
+            console.log(`User with id: ${user.uid} was successfully added to user database`)
+        });
     });
 
     let showNewPostForm: Boolean = false;

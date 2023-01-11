@@ -13,8 +13,8 @@ export type Post = {
     ownerID: string;
     score: number;
     postID: string;
-    username: string;
-    userImageUrl: string;
+    ownerUsername: string;
+    ownerImageURL: string;
     savedByCurrUser: boolean;
 }
 
