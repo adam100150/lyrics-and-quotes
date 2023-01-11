@@ -20,9 +20,8 @@
     }
 
     function handleUpdateSavedPostStatusEvent(event) {
-        console.log('Updating saved post status');
-        console.log(`Event details: ${JSON.stringify(event.detail)}`);
         if (event.detail.action === 'remove') {
+            console.log(`Removing post ${event.detail.postID} from user ${userID}'s saved posts'`);
             const savedPostRef = ref(db, `users/${userID}/savedPosts/${event.detail.postID}`);
             remove(savedPostRef);
         }
@@ -49,27 +48,20 @@
             snapshot.forEach((childSnapshot) => {
                 let postEntry = childSnapshot.val();
                 postEntry['postID'] = childSnapshot.key;
-                const ownerDataRef = ref(db, `users/${postEntry.ownerID}`);
                 
-                // After you retreived the post information, get the owner's information
-                onValue(ownerDataRef, (snapshot) => {
-                    postEntry['ownerUsername'] = snapshot.val().username;
-                    postEntry['ownerImageURL'] = snapshot.val().userImageUrl;
-                    
-                    // After you retreived the owner's information, check if the current post was saved by the current user
-                    const userSavedPostsRef = ref(db, `users/${userID}`);
-                    onValue(userSavedPostsRef, (snapshot) => {
-                        if (snapshot.val() !== null && snapshot.val().hasOwnProperty(postEntry.postID)) {
-                            postEntry['savedByCurrUser'] = true;
-                        } else {
-                            postEntry['savedByCurrUser'] = false;
-                        }
+                const userSavedPostsRef = ref(db, `users/${userID}`);
+                onValue(userSavedPostsRef, (snapshot) => {
+                    if (snapshot.val() !== null && snapshot.val().hasOwnProperty(postEntry.postID)) {
+                        postEntry['savedByCurrUser'] = true;
+                    } else {
+                        postEntry['savedByCurrUser'] = false;
+                    }
 
-                        // Finally, add post data to the post entry list
-                        postDataList.push(postEntry);
-                        postViewDataEntries = postDataList;
-                    });
+                    // Finally, add post data to the post entry list
+                    postDataList.push(postEntry);
+                    postViewDataEntries = postDataList;
                 });
+                
             });        
         });
     }

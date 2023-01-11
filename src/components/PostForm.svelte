@@ -1,13 +1,16 @@
-<script>
+<script lang="ts">
     import { postListRef } from '../database/firebase';
     import { set, push } from 'firebase/database'; 
     import { createEventDispatcher } from 'svelte';
+
+    export let displayName: string;
+    export let photoURL: string;
+    export let uid: string;
 
     let quote;
     let description;
     let source;
     let sourceType;
-    export let userID;
 
     const dispatch = createEventDispatcher();
 
@@ -17,17 +20,23 @@
         let newPostData = {
             'quote': quote,
             'description': description,
-            'ownerID': userID,
+            'ownerID': uid,
+            'ownerUserImageURL': photoURL,
+            'ownerUsername': displayName,
             'source': source,
             'sourceType': sourceType,
             'score': 0,
             'timestamp': `${currentDate.toDateString()} ${currentDate.toLocaleTimeString()}`
-        }    
+        }
 
         const newPostRef = push(postListRef);
-        set(newPostRef, newPostData);
-
-        dispatch('formFinished');
+        set(newPostRef, newPostData)
+        .catch(() => {
+            console.error(`Failed to add new post with data ${JSON.stringify(newPostData)}`)
+        }).then(() => {
+            dispatch('formFinished');
+        });
+        
     };
 
 </script>

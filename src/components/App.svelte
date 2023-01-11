@@ -46,7 +46,7 @@
         {#if !showNewPostForm}
             <button class='app-buttons' id='add-post-button' on:click={toggleShowNewPostForm}>Add Post</button>
         {:else}
-            <PostForm on:formFinished={toggleShowNewPostForm} userID={user.uid}/>
+            <PostForm on:formFinished={toggleShowNewPostForm} {...user}/>
         {/if}
         <Posts userID={user.uid}/>
     {:else}
