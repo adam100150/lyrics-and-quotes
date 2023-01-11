@@ -15,6 +15,7 @@ export type Post = {
     postID: string;
     username: string;
     userImageUrl: string;
+    savedByCurrUser: boolean;
 }
 
 export type filter = {

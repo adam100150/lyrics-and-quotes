@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onValue, ref } from 'firebase/database';
+    import { remove } from 'firebase/database';
     import { createEventDispatcher } from 'svelte';
 
     export let description: string;
@@ -11,6 +11,7 @@
     export let score: number;
     export let userImageUrl: string;
     export let username: string;
+    export let savedByCurrUser: boolean;
 
     const dispatch = createEventDispatcher();
 
@@ -30,6 +31,14 @@
         });
     }
 
+
+    function updateSavedPostStatus(action: string) { 
+        dispatch('updateSavedPostStatusEvent', {
+            action: `${action}`,
+            postID: `${postID}`
+        })
+    }
+
 </script>
 
 <div class='feed-component-outline'>
@@ -41,9 +50,16 @@
     <p id='description'>{description}</p>
 
 
-    <button id='save-button'>
-        <img src='https://freepngimg.com/download/instagram/60239-like-icons-bookmark-button-computer-facebook-instagram.png' alt='save post button'>
-    </button>
+    {#if savedByCurrUser}
+        <button id='save-button' on:click={() => updateSavedPostStatus('remove')}>
+            <img src='https://cdn-icons-png.flaticon.com/128/3082/3082351.png' alt='save post button pressed'>
+        </button>
+    {:else}
+        <button id='save-button' on:click={() => updateSavedPostStatus('save')}>
+            <img src='https://cdn-icons-png.flaticon.com/128/7131/7131186.png' alt='save post button unpressed'>
+        </button>
+    {/if}
+
     <div id='upvotes-and-downvotes'>
         <button class='rating-buttons' on:click={() => votePost(true)}>
             <img src='https://cdn-icons-png.flaticon.com/512/2989/2989972.png' alt='up arrow'>
@@ -71,11 +87,10 @@
 <style>
     #save-button {
         position: absolute;
-        top: 0%;
-        right: 5%;
-        width: 10%;
-        height: 20%;
-        background-image: 'https://freepngimg.com/download/instagram/60239-like-icons-bookmark-button-computer-facebook-instagram.png';
+        top: 5px;
+        right: 25px;
+        width: 10px;
+        height: 20px;
         background-color: white;
         border: none;
     }
@@ -99,6 +114,12 @@
         left: 0%;
     }
 
+    #pfp-outline img {
+        width: 25%;
+        height: 25%;
+        border-radius: 50%;
+    }
+
     #quote {
         margin-top: 10%;
         padding-left: 10%;
@@ -106,7 +127,7 @@
 
     #description {
         padding-left: 15%;
-        
+
     }
 
     #upvotes-and-downvotes {
@@ -140,10 +161,6 @@
         font-style: italic;
         margin-left: 5%;
         margin-right: 0%;
-    }
-
-    img {
-        border-radius: 50%;
     }
 
     p {
