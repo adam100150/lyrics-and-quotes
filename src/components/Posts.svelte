@@ -21,13 +21,13 @@
 
     function handleUpdateSavedPostStatusEvent(event) {
         if (event.detail.action === 'remove') {
-            console.log(`Removing post ${event.detail.postID} from user ${userID}'s saved posts'`);
-            const savedPostRef = ref(db, `users/${userID}/savedPosts/${event.detail.postID}`);
+            console.log(`Removing post ${event.detail.postID} from user ${userID}'s saved posts`);
+            const savedPostRef = ref(db, `users/${userID}/${event.detail.postID}`);
             remove(savedPostRef);
         }
         else if (event.detail.action === 'save') {
             console.log(`Saving post ${event.detail.postID} to user ${userID}`);
-            const allSavedPostsRef = ref(db, `users/${userID}/savedPosts/`);
+            const allSavedPostsRef = ref(db, `users/${userID}/`);
             let updates = {};
             updates[`${event.detail.postID}`] = true;
             update(allSavedPostsRef, updates);
