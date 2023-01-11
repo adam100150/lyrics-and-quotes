@@ -54,11 +54,11 @@
             </li>
             <li>
                 <label for='source'>Source:</label>
-                <input bind:value={source} class='input-fields' size=40 type='text' placeholder='Walt Disney'>
+                <input bind:value={source} class='input-fields' type='text' placeholder='Walt Disney'>
             </li>
             <li>
                 <label id='select-label' for='source-type'>Source Type:</label>
-                <select bind:value={sourceType} id='select-item' class='input-fields'>
+                <select style="text-align:center" bind:value={sourceType} class='input-fields'>
                     <option value='Movie'>Movie</option>
                     <option value='Book'>Book</option>
                     <option value='TVShow'>TV Show</option>
@@ -72,10 +72,6 @@
 </div>
 
 <style>
-    #select-item {
-        margin-right: 53%;
-    }
-
     #submit-button {
         width: 30%;
         height: 30px;
@@ -93,10 +89,12 @@
     #form-outline {
         padding: 5%;
     } 
+
     ul {
         list-style: none;
         padding: 0;
         margin: 0;
+        float: left;
     }
 
     label {
@@ -108,10 +106,12 @@
     }
 
     .input-fields {
+        width: 300px;
+        float: left;
         font-family: inherit;
         -webkit-padding: 0.4em 0;
         padding: 0.4em;
-        margin: 0 0 0.5em 0;
+        margin: 0 0 0.5em 0.5em;
         box-sizing: border-box;
         border: 1px solid #ccc;
         border-radius: 2px;
