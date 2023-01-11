@@ -74,6 +74,7 @@
 <style>
     textarea {
         width: auto;
+        overflow: auto;
     }
     
     #submit-button {

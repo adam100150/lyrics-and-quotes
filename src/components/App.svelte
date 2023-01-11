@@ -50,7 +50,6 @@
 <main>
     {#if user}
         <Profile {...user} />
-	    <button class='app-buttons' id='logout-button' on:click={ () => auth.signOut() }>Logout</button>
         {#if !showNewPostForm}
             <button class='app-buttons' id='add-post-button' on:click={toggleShowNewPostForm}>Add Post</button>
         {:else}
@@ -74,13 +73,6 @@
 	h3 {
 		text-transform: uppercase;
 		font-size: 1em;
-	}
-
-    #logout-button {
-        position: absolute;
-        top: 90%;
-        left: 5%;
-        width: 20%;
     }
 
     #add-post-button {

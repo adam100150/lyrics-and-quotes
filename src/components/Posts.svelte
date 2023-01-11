@@ -43,19 +43,18 @@
         // Getting all posts data
         onValue($postsRef, (snapshot) => {  
             let postDataList = [];
-            
+
             // For each post
             snapshot.forEach((childSnapshot) => {
                 let postEntry = childSnapshot.val();
                 postEntry['postID'] = childSnapshot.key;
-                
                 const userSavedPostsRef = ref(db, `users/${userID}`);
                 onValue(userSavedPostsRef, (snapshot) => {
                     if (snapshot.val() !== null && snapshot.val().hasOwnProperty(postEntry.postID)) {
                         postEntry['savedByCurrUser'] = true;
                     } else {
                         postEntry['savedByCurrUser'] = false;
-                    }
+                    }                    
 
                     // Finally, add post data to the post entry list
                     postDataList.push(postEntry);
@@ -85,7 +84,9 @@
         {/if}
     {:else}
         {#each postViewDataEntries as postViewData}
-            <PostView on:updateSavedPostStatusEvent={handleUpdateSavedPostStatusEvent} on:votePostEvent={handleVotePost} {...postViewData} />
+            {#if !($filterWritable.filterKey === 'savedByCurrUser') || ($filterWritable.filterKey === 'savedByCurrUser' && postViewData.savedByCurrUser)}
+                <PostView on:updateSavedPostStatusEvent={handleUpdateSavedPostStatusEvent} on:votePostEvent={handleVotePost} {...postViewData} />
+            {/if}
         {/each}
     {/if}
 </div>

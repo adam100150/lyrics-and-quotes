@@ -6,9 +6,8 @@ import type { filter } from './types';
 export const filterWritable: Writable<filter> = writable({filterKey:'',filterValue:''});
 
 export const postsRef = derived(filterWritable, $filterWritable => {
-    if (JSON.stringify($filterWritable) === '{"filterKey":"","filterValue":""}') {
+    if ($filterWritable.filterKey === 'savedByCurrUser' || $filterWritable.filterKey === '') {
         return query(postListRef, orderByKey());
     }
-
     return query(postListRef, orderByChild($filterWritable.filterKey), equalTo($filterWritable.filterValue));
 });

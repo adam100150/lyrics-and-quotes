@@ -1,6 +1,6 @@
 <script lang="ts">
     import { filterWritable } from '../stores';
-
+    import { auth } from '../database/firebase';
     export let displayName: string;
     export let photoURL: string;
     export let uid: string;
@@ -14,14 +14,12 @@
     <button class='app-buttons profile-app-buttons' id='tv-show' on:click={() => filterWritable.set({filterKey: 'sourceType', filterValue:'TV'})}>TV Shows</button>
     <button class='app-buttons profile-app-buttons' id='book' on:click={() => filterWritable.set({filterKey: 'sourceType', filterValue:'Book'})}>Books</button>
     <button class='app-buttons profile-app-buttons' id='lyric' on:click={() => filterWritable.set({filterKey: 'sourceType', filterValue:'Lyric'})}>Lyrics</button>
-    <button class='app-buttons profile-app-buttons' id='my-posts' on:click={() => filterWritable.set({filterKey: 'ownerID', filterValue:`${uid}`})}>My Posts</button>
+    <button class='app-buttons profile-app-buttons' style="height: 30px" on:click={() => filterWritable.set({filterKey: 'ownerID', filterValue:`${uid}`})}>My Posts</button>
+    <button class='app-buttons profile-app-buttons' style="height: 30px" on:click={() => filterWritable.set({filterKey: 'savedByCurrUser', filterValue: 'true'})}>Saved Posts</button>
+    <button class='app-buttons profile-app-buttons' style="height: 30px" id='logout-button' on:click={ () => auth.signOut() }>Logout</button>
 </div>
 
 <style>
-    #my-posts {
-        height: 30px;
-    }
-
     div {
         width: 20%;
         position: absolute;
