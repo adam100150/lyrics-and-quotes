@@ -9,7 +9,7 @@
     export let timestamp: Date;
     export let postID: string;
     export let score: number;
-    export let ownerImageURL: string;
+    export let ownerUserImageURL: string;
     export let ownerUsername: string;
     export let savedByCurrUser: boolean;
 
@@ -44,7 +44,7 @@
 <div class='feed-component-outline'>
     <div id='username-outline'>{ownerUsername}</div>
     <div id='pfp-outline'>
-        <img src={ownerImageURL} alt='user avatar' width=25% height=25%>
+        <img src={ownerUserImageURL} alt='user avatar' width=25% height=25%>
     </div>
     <h4 id='quote'>{quote}</h4>
     <p id='description'>{description}</p>
@@ -122,12 +122,11 @@
 
     #quote {
         margin-top: 10%;
-        padding-left: 10%;
+        padding-left: 8%;
     }
 
     #description {
         padding-left: 15%;
-
     }
 
     #upvotes-and-downvotes {

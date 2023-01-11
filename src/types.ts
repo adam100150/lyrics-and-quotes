@@ -14,7 +14,7 @@ export type Post = {
     score: number;
     postID: string;
     ownerUsername: string;
-    ownerImageURL: string;
+    ownerUserImageURL: string;
     savedByCurrUser: boolean;
 }
 

@@ -5,7 +5,7 @@
     import Profile from './Profile.svelte';
     import Posts from './Posts.svelte';
     import PostForm from './PostForm.svelte';
-    import { ref, set } from 'firebase/database';
+    import { get, ref, set } from 'firebase/database';
     import { db } from '../database/firebase';
 
     function login() {
@@ -19,16 +19,24 @@
 
     let user: User;
     authState(auth).subscribe((u: User) => {
-        user = u
-        console.log(`Signing in user with ID: ${u.uid} and adding user ID to database`);
-        const usersRef = ref(db, `users`);
-        let userData: Array<string> = [];
-        set(usersRef, userData)
-        .catch(() => {
-            console.error('User was not added to database. Invalidating user authentication'); 
-            user = null;
-        }).then(() => {
-            console.log(`User with id: ${user.uid} was successfully added to user database`)
+        user = u;
+        console.log(`Signing in user with ID: ${user.uid} and adding user ID to database`);
+        const userRef = ref(db, `users/${user.uid}`);
+       
+        get(userRef).then((snapshot) => {
+            if (!snapshot.exists()) {
+                let userData = {
+                  'postID': 'something else'
+                };
+
+                set(ref(db, `users/${user.uid}`), userData)
+                .catch(() => {
+                    console.error('User was not added to database. Invalidating user authentication'); 
+                    user = null;
+                }).then(() => {
+                    console.log(`User with id: ${user.uid} was successfully added to user database`)
+                });
+            }
         });
     });
 
