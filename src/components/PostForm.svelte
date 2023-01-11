@@ -72,6 +72,10 @@
 </div>
 
 <style>
+    textarea {
+        width: auto;
+    }
+    
     #submit-button {
         width: 30%;
         height: 30px;
