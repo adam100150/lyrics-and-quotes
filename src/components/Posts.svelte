@@ -97,7 +97,7 @@
 
 <style>
     div {
-        width: 200%;
+        width: 500px;
     }
 
     h4 {

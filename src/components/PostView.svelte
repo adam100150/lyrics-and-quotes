@@ -82,8 +82,8 @@
     {/if}
 
     {timestamp}
+    <button class='app-buttons' style="width:70%; margin-bottom:5px">Show Comments</button>
 </div>
-
 <style>
     #save-button {
         position: absolute;
