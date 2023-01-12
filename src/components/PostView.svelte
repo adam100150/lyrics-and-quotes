@@ -103,25 +103,24 @@
 
     #username-outline {
         position: absolute;
-        top: 6%;
-        left: 5%;
-        margin-left: 10%;
+        top: 1em;
+        margin-left: 8%;
     }
 
     #pfp-outline {
         position: absolute;
-        top: 5%;
-        left: 0%;
+        top: 0.3em;
+        left: 0.3em;
     }
 
     #pfp-outline img {
-        width: 25%;
-        height: 25%;
+        width: 3em;
+        height: 3em;
         border-radius: 50%;
     }
 
     #quote {
-        margin-top: 10%;
+        margin-top: 4em;
         padding-left: 8%;
     }
 

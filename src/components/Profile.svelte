@@ -14,25 +14,28 @@
     <button class='app-buttons profile-app-buttons' id='tv-show' on:click={() => filterWritable.set({filterKey: 'sourceType', filterValue:'TV'})}>TV Shows</button>
     <button class='app-buttons profile-app-buttons' id='book' on:click={() => filterWritable.set({filterKey: 'sourceType', filterValue:'Book'})}>Books</button>
     <button class='app-buttons profile-app-buttons' id='lyric' on:click={() => filterWritable.set({filterKey: 'sourceType', filterValue:'Lyric'})}>Lyrics</button>
-    <button class='app-buttons profile-app-buttons' style="height: 30px" on:click={() => filterWritable.set({filterKey: 'ownerID', filterValue:`${uid}`})}>My Posts</button>
-    <button class='app-buttons profile-app-buttons' style="height: 30px" on:click={() => filterWritable.set({filterKey: 'savedByCurrUser', filterValue: 'true'})}>Saved Posts</button>
-    <button class='app-buttons profile-app-buttons' style="height: 30px" on:click={() => filterWritable.set({filterKey: '', filterValue: ''})}>Reset Filter</button>
-    <button class='app-buttons profile-app-buttons' style="height: 30px" id='logout-button' on:click={ () => auth.signOut() }>Logout</button>
+    <button class='app-buttons profile-app-buttons' on:click={() => filterWritable.set({filterKey: 'ownerID', filterValue:`${uid}`})}>My Posts</button>
+    <button class='app-buttons profile-app-buttons' on:click={() => filterWritable.set({filterKey: 'savedByCurrUser', filterValue: 'true'})}>Saved Posts</button>
+    <button class='app-buttons profile-app-buttons' on:click={() => filterWritable.set({filterKey: '', filterValue: ''})}>Reset Filter</button>
+    <button class='app-buttons profile-app-buttons' id='logout-button' on:click={ () => auth.signOut() }>Logout</button>
 </div>
 
 <style>
     div {
-        width: 20%;
-        position: absolute;
-        top: 5%;
-        left: 5%;
-        border: 2px solid #000000;
-        border-radius: 5px;
+        position: fixed;
+        top: 4.7em;
+        left: 0%;
+        height: 90%;
+        border-right: 2px solid #000;
+        border-bottom: 2px solid #000;
+        background: #fff;
+        overflow-y: auto;
+	    width: 15em;
     }
 
     img {
         border-radius: 10px;
-        margin-bottom: 5%;
-        width: 40%;
+        margin-bottom: 2em;
+        width: 7em;
     }
 </style>

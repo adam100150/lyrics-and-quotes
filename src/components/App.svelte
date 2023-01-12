@@ -7,6 +7,7 @@
     import PostForm from './PostForm.svelte';
     import { get, ref, set } from 'firebase/database';
     import { db } from '../database/firebase';
+    import Header from './Header.svelte';
 
     function login() {
         signInWithPopup(auth, googleProvider).catch((error) => {
@@ -49,6 +50,7 @@
 
 <main>
     {#if user}
+        <Header />
         <Profile {...user} />
         {#if !showNewPostForm}
             <button class='app-buttons' id='add-post-button' on:click={toggleShowNewPostForm}>Add Post</button>
@@ -66,17 +68,14 @@
 	main {
 		text-align: center;
 		padding: 1em;
-		max-width: 240px;
+		max-width: 100em;
 		margin: 0 auto;
 	}
 
-	h3 {
-		text-transform: uppercase;
-		font-size: 1em;
-    }
-
     #add-post-button {
-        width: 500px;
-        margin-bottom: 10%;
+        width: 50%;
+        margin-bottom: 3em;
+        margin-top: 7em;
+        margin-left: 20%;
     }
 </style>

@@ -71,7 +71,6 @@
 
 </script>
 
-<div>
     {#if postViewDataEntries.length === 0}
         {#if $filterWritable.filterKey === 'sourceType'}
             <h4>
@@ -93,13 +92,8 @@
             {/if}
         {/each}
     {/if}
-</div>
 
 <style>
-    div {
-        width: 500px;
-    }
-
     h4 {
         text-align: center;
     }
