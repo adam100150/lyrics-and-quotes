@@ -82,5 +82,65 @@ body {
 #lyric {
   background-color: rgba(230, 83, 218, 0.9);
   color: #000000;
+}
 
+textarea {
+  width: auto;
+  overflow: auto;
+  vertical-align: top;
+}
+
+#form-feed-outline {
+  margin-top: 4.7em;
+}
+
+#submit-button {
+  width: 30%;
+  height: 2em;
+  background-color: rgb(42, 192, 8);
+  margin-right: 30%;
+}
+
+#cancel-button {
+  width: 30%;
+  height: 2em;
+  background-color: red;
+  display: inline-block;
+}
+
+#form-outline {
+  padding: 5%;
+} 
+
+ul {
+  width: 90%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  float: left;
+}
+
+label {
+  /* Uniform size & alignment */
+  width: 25%;
+  text-align: right;
+  font-size: x-large;
+  float: left;
+}
+
+.input-fields {
+  width: 70%;
+  float: middle;
+  font-family: inherit;
+  -webkit-padding: 0.4em 0;
+  padding: 0.4em;
+  margin: 0 0 0.5em 0.5em;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  font-size: x-large;
+}
+
+input, select {
+  vertical-align: middle;
 }

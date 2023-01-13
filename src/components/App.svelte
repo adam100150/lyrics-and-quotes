@@ -42,9 +42,6 @@
     });
 
     let showNewPostForm: Boolean = false;
-    function toggleShowNewPostForm() {
-        showNewPostForm = !showNewPostForm;
-    }
 
 </script>
 
@@ -53,9 +50,9 @@
         <Header />
         <Profile {...user} />
         {#if !showNewPostForm}
-            <button class='app-buttons' id='add-post-button' on:click={toggleShowNewPostForm}>Add Post</button>
+            <button class='app-buttons' id='add-post-button' on:click={() => showNewPostForm = true}>Add Post</button>
         {:else}
-            <PostForm on:formFinished={toggleShowNewPostForm} {...user}/>
+            <PostForm on:formFinished={() => showNewPostForm = false} {...user}/>
         {/if}
         <Posts userID={user.uid}/>
     {:else}

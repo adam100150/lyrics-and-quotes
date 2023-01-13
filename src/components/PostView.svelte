@@ -1,5 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
+    import Comments from './Comments.svelte';
 
     export let description: string;
     export let quote: string;
@@ -37,6 +38,8 @@
             postID: `${postID}`
         })
     }
+
+    let showComments: boolean = false;
 
 </script>
 
@@ -81,7 +84,13 @@
     {/if}
 
     {timestamp}
-    <button class='app-buttons' style="width:70%; margin-bottom:5px">Show Comments</button>
+    {#if !showComments}
+        <button class='app-buttons' style="width:70%; margin-bottom:5px" on:click={() => showComments = true}>Show Comments</button>
+    {:else}
+        <Comments {postID}/>
+    {/if}
+
+    
 </div>
 <style>
     #save-button {

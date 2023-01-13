@@ -1,5 +1,6 @@
 export type Comment = {
-    userName: string;
+    username: string;
+    userImageURL: string;
     text: string;
 };
 

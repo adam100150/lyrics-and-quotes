@@ -1,0 +1,19 @@
+<script lang="ts">
+    import { createEventDispatcher } from 'svelte'
+    
+    let text: string;
+
+    const dispatch = createEventDispatcher();
+
+</script>
+
+<div id='form-outline' style="padding: 2%;">
+    <ul style="width: 100%;">
+        <li>
+        <label for='text' style="width: 10%;">Comment:</label>
+            <textarea style="margin-left: 0" bind:value={text} placeholder='Wow this post is so great...' cols=50 class='input-fields'></textarea>
+        </li>
+    </ul>
+    <button class='app-buttons' id='submit-button' on:click={() => dispatch('commentFormFinished', {'text': `${text}`})}>Add Comment</button>
+    <button class='app-buttons' id='cancel-button' on:click={() => dispatch('commentFormFinished')}>Cancel</button>
+</div>

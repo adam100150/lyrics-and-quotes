@@ -41,7 +41,7 @@
 
 </script>
 
-<div class='feed-component-outline'>
+<div class='feed-component-outline' id='form-feed-outline'>
     <div id='form-outline'>
         <ul>
             <li>
@@ -70,65 +70,3 @@
         <button class='app-buttons' id='cancel-button' on:click={() => dispatch('formFinished')}>Cancel</button>
     </div>
 </div>
-
-<style>
-    textarea {
-        width: auto;
-        overflow: auto;
-    }
-    
-    #submit-button {
-        width: 30%;
-        height: 2em;
-        background-color: rgb(42, 192, 8);
-        margin-right: 30%;
-    }
-
-    #cancel-button {
-        width: 30%;
-        height: 2em;
-        background-color: red;
-        display: inline-block;
-    }
-
-    #form-outline {
-        padding: 5%;
-    } 
-
-    ul {
-        width: 90%;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        float: left;
-    }
-
-    label {
-        /* Uniform size & alignment */
-        width: 25%;
-        text-align: right;
-        font-size: x-large;
-        float: left;
-    }
-
-    .input-fields {
-        width: 70%;
-        float: middle;
-        font-family: inherit;
-        -webkit-padding: 0.4em 0;
-        padding: 0.4em;
-        margin: 0 0 0.5em 0.5em;
-        box-sizing: border-box;
-        border: 1px solid #ccc;
-        border-radius: 2px;
-        font-size: x-large;
-    }
-    
-    textarea {
-        vertical-align: top;
-    }
-
-    input, select {
-        vertical-align: middle;
-    }
-</style>
