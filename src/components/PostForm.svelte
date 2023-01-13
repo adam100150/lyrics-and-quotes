@@ -79,14 +79,14 @@
     
     #submit-button {
         width: 30%;
-        height: 30px;
+        height: 2em;
         background-color: rgb(42, 192, 8);
         margin-right: 30%;
     }
 
     #cancel-button {
         width: 30%;
-        height: 30px;
+        height: 2em;
         background-color: red;
         display: inline-block;
     }
@@ -96,6 +96,7 @@
     } 
 
     ul {
+        width: 90%;
         list-style: none;
         padding: 0;
         margin: 0;
@@ -104,15 +105,15 @@
 
     label {
         /* Uniform size & alignment */
-        width: 80px;
+        width: 25%;
         text-align: right;
-        font-size: small;
+        font-size: x-large;
         float: left;
     }
 
     .input-fields {
-        width: 300px;
-        float: left;
+        width: 70%;
+        float: middle;
         font-family: inherit;
         -webkit-padding: 0.4em 0;
         padding: 0.4em;
@@ -120,6 +121,7 @@
         box-sizing: border-box;
         border: 1px solid #ccc;
         border-radius: 2px;
+        font-size: x-large;
     }
     
     textarea {
