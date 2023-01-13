@@ -20,14 +20,14 @@
 </script>
 
 {#if showNewCommentForm}
-    <CommentForm />
+    <CommentForm on:commentFormFinished={() => {console.log('Comment form finished'); showNewCommentForm = false}}/>
 {/if}
 
 {#if comments.length === 0}
     <h4>There are no comments for this post</h4>
 {:else}
     {#each comments as comment}
-        <CommentView on:commentFormFinished={() => showNewCommentForm = false} {...comment}/>
+        <CommentView {...comment}/>
     {/each}
 {/if}
 
