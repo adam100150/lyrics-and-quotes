@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { remove } from 'firebase/database';
     import { createEventDispatcher } from 'svelte';
 
     export let description: string;
@@ -17,7 +16,7 @@
 
 
     function votePost (upvotePost: Boolean) {
-        console.log(`Voting post ${upvotePost}`);
+        console.log(`User is ${upvotePost ? 'upvoting' : 'downvoting'} post with id ${postID}`);
         let newScore: number;
         if (upvotePost) {
             newScore = score + 1;

@@ -60,7 +60,7 @@
         <Posts userID={user.uid}/>
     {:else}
         <h3>You are not logged in! Please login.</h3>
-        <button class='app-buttons' on:click={login}>Signin with Google</button>
+        <button class='app-buttons' style="width: 60%;" on:click={login}>Signin with Google</button>
     {/if}
 </main>
 

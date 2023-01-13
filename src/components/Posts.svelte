@@ -59,7 +59,6 @@
                     if (postDataList.includes(postEntry)) {
                         postDataList[postDataList.indexOf(postEntry)] = newPostEntry;
                     } else {
-                        console.log('Adding post entry');
                         postDataList.push(postEntry);
                     }
                     postViewDataEntries = postDataList;
