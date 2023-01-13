@@ -104,7 +104,7 @@
     #username-outline {
         position: absolute;
         top: 1em;
-        margin-left: 8%;
+        margin-left: 11%;
     }
 
     #pfp-outline {
@@ -130,23 +130,24 @@
 
     #upvotes-and-downvotes {
         position: absolute;  
-        top: 20%;
-        left: 2%;
-        width: 50px;
-        height: 75px;
+        top: 4.5em;
+        left: 1.25em;
+        width: 2.5em;
+        height: 5em;
     }
 
     #score {
         vertical-align: top;
-        font-size: small;
+        font-size: x-large;
     }
 
     .rating-buttons img {
-        height: 20%;
+        height: 80%;
         width: 70%;
     }
 
     .rating-buttons {
+        height: 50%;
         background: none;
         border: none;
     }
