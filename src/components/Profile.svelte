@@ -25,7 +25,7 @@
         position: fixed;
         top: 4.7em;
         left: 0%;
-        height: 90%;
+        height: 87%;
         border-right: 2px solid #000;
         border-bottom: 2px solid #000;
         background: #fff;
