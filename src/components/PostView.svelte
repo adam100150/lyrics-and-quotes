@@ -46,7 +46,7 @@
 <div class='feed-component-outline'>
     <div id='username-outline'>{ownerUsername}</div>
     <div id='pfp-outline'>
-        <img src={ownerUserImageURL} alt='user avatar' width=25% height=25%>
+        <img src={ownerUserImageURL} alt='user avatar' width=3em height=3em>
     </div>
     <h4 id='quote'>{quote}</h4>
     <p id='description'>{description}</p>
@@ -85,9 +85,9 @@
 
     {timestamp}
     {#if !showComments}
-        <button class='app-buttons' style="width:70%; margin-bottom:5px" on:click={() => showComments = true}>Show Comments</button>
+        <button class='app-buttons' style="width:70%; margin-bottom:1em" on:click={() => showComments = true}>Show Comments</button>
     {:else}
-        <Comments {postID}/>
+        <Comments on:hideCommentsEvent={() => showComments = false} {postID}/>
     {/if}
 
     
@@ -173,5 +173,4 @@
     p {
         text-align: left;
     }
-
 </style>

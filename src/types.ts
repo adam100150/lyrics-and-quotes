@@ -19,7 +19,12 @@ export type Post = {
     savedByCurrUser: boolean;
 }
 
-export type filter = {
+export type Filter = {
     filterKey: string;
     filterValue: string;
+}
+
+export type User = {
+    username: string;
+    userImageURL: string;
 }

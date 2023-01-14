@@ -8,6 +8,7 @@
     import { get, ref, set } from 'firebase/database';
     import { db } from '../database/firebase';
     import Header from './Header.svelte';
+    import { userWritable } from '../stores';
 
     function login() {
         signInWithPopup(auth, googleProvider).catch((error) => {
@@ -21,6 +22,8 @@
     let user: User;
     authState(auth).subscribe((u: User) => {
         user = u;
+
+        userWritable.set({username: user.displayName, userImageURL: user.photoURL});
         console.log(`Signing in user with ID: ${user.uid} and adding user ID to database`);
         const userRef = ref(db, `users/${user.uid}`);
        
@@ -40,6 +43,7 @@
             }
         });
     });
+
 
     let showNewPostForm: Boolean = false;
 
