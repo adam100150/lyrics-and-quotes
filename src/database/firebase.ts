@@ -6,7 +6,7 @@ import { initializeAppCheck, ReCaptchaV3Provider } from 'firebase/app-check';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCHL9UcT3TtvgQwt7N3DbLjRon9gKPFjA0",
-    authDomain: "lyrics-and-quotes.firebaseapp.com",
+    authDomain: "lyricsandquotes.org",
     databaseURL: "https://lyrics-and-quotes-default-rtdb.firebaseio.com",
     projectId: "lyrics-and-quotes",
     storageBucket: "lyrics-and-quotes.appspot.com",
