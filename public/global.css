@@ -64,19 +64,27 @@ body {
   width: 50%;
 }
 
+.tag {
+  color: #000000;
+  margin-top: 2em;
+}
+
 #book {
   background-color: rgba(243, 72, 72, 0.9);
   color: #000000;
+
 }
 
 #movie {
   background-color: rgba(135, 240, 93, 0.9);
   color: #000000;
+
 }
 
 #tv-show {
   background-color: rgba(83, 135, 230, 0.9);
   color: #000000;
+
 }
 
 #lyric {

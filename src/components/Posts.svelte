@@ -35,7 +35,8 @@
     }
     
     let postViewDataEntries: Array<Post>;
-
+    let containsSavedQuotes: boolean;
+    
     // Run this code block again upon change in any references
     $: {
         postViewDataEntries = [];
@@ -52,6 +53,7 @@
                     let newPostEntry = postEntry;
                     if (snapshot.val() !== null && snapshot.val().hasOwnProperty(postEntry.postID)) {
                         newPostEntry['savedByCurrUser'] = true;
+                        containsSavedQuotes = true;
                     } else {
                         newPostEntry['savedByCurrUser'] = false;
                     }                    
@@ -69,8 +71,7 @@
     }
 
 </script>
-
-    {#if postViewDataEntries.length === 0}
+    {#if postViewDataEntries.length === 0 || !containsSavedQuotes}
         {#if $filterWritable.filterKey === 'sourceType'}
             <h4>
                 Sorry no {$filterWritable.filterValue} posts
@@ -94,6 +95,8 @@
 
 <style>
     h4 {
-        text-align: center;
+        position: absolute;
+        top: 12em;
+        left: 56em;
     }
 </style>
