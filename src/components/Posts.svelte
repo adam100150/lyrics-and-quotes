@@ -39,6 +39,7 @@
     
     // Run this code block again upon change in any references
     $: {
+        containsSavedQuotes = false;
         postViewDataEntries = [];
         // Getting all posts data
         onValue($postsRef, (snapshot) => {  
@@ -71,18 +72,18 @@
     }
 
 </script>
-    {#if postViewDataEntries.length === 0 || !containsSavedQuotes}
+    {#if $filterWritable.filterKey === 'savedByCurrUser' && !containsSavedQuotes}
+        <h4>
+            You don't have any saved posts
+        </h4>
+    {:else if postViewDataEntries.length === 0}
         {#if $filterWritable.filterKey === 'sourceType'}
             <h4>
                 Sorry no {$filterWritable.filterValue} posts
             </h4>
-        {:else if $filterWritable.filterKey === 'ownerID'}
-            <h4>
-                You haven't posted anything yet
-            </h4>
         {:else}
             <h4>
-                You don't have any saved posts
+                You haven't posted anything yet
             </h4>
         {/if}
     {:else}
@@ -96,7 +97,7 @@
 <style>
     h4 {
         position: absolute;
-        top: 12em;
-        left: 56em;
+        top: 50%;
+        left: 50%;
     }
 </style>
