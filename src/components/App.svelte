@@ -38,7 +38,7 @@
                     console.error('User was not added to database. Invalidating user authentication'); 
                     user = null;
                 }).then(() => {
-                    console.log(`User with id: ${user.uid} was successfully added to user database.`)
+                    console.log(`User with id: ${user.uid} was successfully added to user database`)
                 });
             }
         });
