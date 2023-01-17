@@ -48,8 +48,13 @@
     <div id='pfp-outline'>
         <img src={ownerUserImageURL} alt='user avatar' width=3em height=3em>
     </div>
-    <h4 id='quote'>{quote}</h4>
-    <p id='description'>{description}</p>
+    <div id='quote-block'>
+        <div id='quote'>{quote}</div>
+        <div id='source'>{source}</div>
+    </div>
+    <p id='description'>
+        {description}
+    </p>
 
 
     {#if savedByCurrUser}
@@ -71,7 +76,6 @@
             <img src='https://cdn-icons-png.flaticon.com/512/2989/2989995.png' height='30%' alt='down arrow'>
         </button>
     </div>
-    <p id='source'>Source: {source}</p>
     
     {#if sourceType==='Book'}
         <div class='tag' id='book'>Book</div>
@@ -83,7 +87,7 @@
         <div class='tag' id='lyric'>Lyric</div>
     {/if}
 
-    {timestamp}
+    <div>{timestamp}</div>
     {#if !showComments}
         <button class='app-buttons' style="width:70%; margin-bottom:1em" on:click={() => showComments = true}>Show Comments</button>
     {:else}
@@ -112,7 +116,7 @@
     #username-outline {
         position: absolute;
         top: 1em;
-        margin-left: 11%;
+        left: 4em;
     }
 
     #pfp-outline {
@@ -127,19 +131,31 @@
         border-radius: 50%;
     }
 
-    #quote {
+    #quote-block {
         margin-top: 4em;
         padding-left: 8%;
+        font-style: italic;
+    }
+
+    #quote {
+        font-weight: bold;
+    }
+
+    #source {
+        text-align: right;
+        margin-right: 1em;
+        margin-top: 0.5em;
     }
 
     #description {
-        padding-left: 15%;
+        padding-left: 10%;
+        text-align: left;
     }
 
     #upvotes-and-downvotes {
         position: absolute;  
         top: 4.5em;
-        left: 1.25em;
+        left: 2%;
         width: 2.5em;
         height: 5em;
     }
@@ -158,19 +174,5 @@
         height: 50%;
         background: none;
         border: none;
-    }
-
-    #source {
-        margin-left: 5%;
-    }
-    
-    h4 {
-        font-style: italic;
-        margin-left: 5%;
-        margin-right: 0%;
-    }
-
-    p {
-        text-align: left;
     }
 </style>

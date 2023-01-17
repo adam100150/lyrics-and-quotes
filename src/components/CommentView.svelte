@@ -24,7 +24,7 @@
     #comment-content-outline {
         width: 80%;
         background-color: #c8e4f5;
-        margin-left: 17%;
+        margin-left: 6em;
         padding: 0.001em 0.001em 0.001em 0.001em;
         border-radius: 10px;
         text-align: left;
