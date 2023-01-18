@@ -44,7 +44,6 @@
         // Getting all posts data
         onValue($postsRef, (snapshot) => {  
             let postDataList: Array<Post> = [];
-
             // For each post
             snapshot.forEach((childSnapshot) => {
                 let postEntry = childSnapshot.val();
@@ -62,7 +61,7 @@
                     if (postDataList.includes(postEntry)) {
                         postDataList[postDataList.indexOf(postEntry)] = newPostEntry;
                     } else {
-                        postDataList.push(postEntry);
+                        postDataList.unshift(postEntry);
                     }
                     postViewDataEntries = postDataList;
                 });
