@@ -28,3 +28,5 @@ export type User = {
     username: string;
     userImageURL: string;
 }
+
+export type ValidatationStatus = 'tooShort' | 'tooLong' | 'valid';

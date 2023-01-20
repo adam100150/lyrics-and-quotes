@@ -43,6 +43,7 @@ body {
 
 .app-buttons:disabled {
   cursor: default;
+  background-color: gray;
 }
 
 .app-buttons:focus {
@@ -102,14 +103,14 @@ textarea {
   margin-top: 4.7em;
 }
 
-#submit-button {
+.submit-button {
   width: 30%;
   height: 2em;
   background-color: rgb(42, 192, 8);
   margin-right: 30%;
 }
 
-#cancel-button {
+.cancel-button {
   width: 30%;
   height: 2em;
   background-color: red;
@@ -117,7 +118,7 @@ textarea {
 }
 
 #form-outline {
-  padding: 5%;
+  padding: 3%;
 } 
 
 ul {
@@ -125,24 +126,16 @@ ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  float: left;
-}
-
-label {
-  /* Uniform size & alignment */
-  width: 25%;
-  text-align: right;
-  font-size: x-large;
-  float: left;
+  display: inline-block;
 }
 
 .input-fields {
-  width: 70%;
+  width: 100%;
   float: middle;
   font-family: inherit;
   -webkit-padding: 0.4em 0;
   padding: 0.4em;
-  margin: 0 0 0.5em 0.5em;
+  margin-top: 0.5em;
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 2px;

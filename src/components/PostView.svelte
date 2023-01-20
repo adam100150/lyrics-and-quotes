@@ -1,5 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
+    import { empty } from 'svelte/internal';
     import Comments from './Comments.svelte';
 
     export let description: string;
@@ -52,9 +53,9 @@
         <div id='quote'>{quote}</div>
         <div id='source'>{source}</div>
     </div>
-    <p id='description'>
+    <div id='description'>
         {description}
-    </p>
+    </div>
 
 
     {#if savedByCurrUser}
@@ -76,15 +77,15 @@
             <img src='https://cdn-icons-png.flaticon.com/512/2989/2989995.png' height='30%' alt='down arrow'>
         </button>
     </div>
-    
-    {#if sourceType==='Book'}
-        <div class='tag' id='book'>Book</div>
-    {:else if sourceType==='Movie'}
-        <div class='tag' id='movie'>Movie</div>
-    {:else if sourceType==='TV'}
-        <div class='tag' id='tv-show'>TV Show</div>
+
+    {#if sourceType === 'Book'}
+        <div class='{description === '' ? 'empty-description-tag': 'tag'}' id='book'>Book</div>
+    {:else if sourceType === 'Movie'}
+        <div class='{description === '' ? 'empty-description-tag': 'tag'}' id='movie'>Movie</div>
+    {:else if sourceType === 'TV'}
+        <div class='{description === '' ? 'empty-description-tag': 'tag'}' id='tv-show'>TV Show</div>
     {:else}
-        <div class='tag' id='lyric'>Lyric</div>
+        <div class='{description === '' ? 'empty-description-tag': 'tag'}' id='lyric'>Lyric</div>
     {/if}
 
     <div>{timestamp}</div>
@@ -134,6 +135,7 @@
     #quote-block {
         margin-top: 4em;
         padding-left: 8%;
+        margin-right: 2%;
         font-style: italic;
     }
 
@@ -150,6 +152,7 @@
     #description {
         padding-left: 10%;
         text-align: left;
+        margin-top: 1em;
     }
 
     #upvotes-and-downvotes {
@@ -163,6 +166,10 @@
     #score {
         vertical-align: top;
         font-size: x-large;
+    }
+
+    .empty-description-tag {
+        margin-top: 4em;
     }
 
     .rating-buttons img {
