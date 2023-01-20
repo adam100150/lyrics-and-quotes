@@ -2,15 +2,16 @@
     import { postListRef } from '../database/firebase';
     import { set, push } from 'firebase/database'; 
     import { createEventDispatcher } from 'svelte';
-
+    import type { ValidatationStatus } from '../types';
+    import { text } from 'svelte/internal';
     export let displayName: string;
     export let photoURL: string;
     export let uid: string;
 
-    let quote;
-    let description;
-    let source;
-    let sourceType;
+    let quote: string = '';
+    let description: string = '';
+    let source: string = '';
+    let sourceType: string = '';
 
     const dispatch = createEventDispatcher();
 
@@ -39,34 +40,108 @@
         
     };
 
+
+
+    //TODO: Finish implementing validation
+    function textInputValidator(input: string, minLength: number, maxLength: number) {
+        let status: ValidatationStatus = 'valid';    
+        if (input.length < minLength) {
+            status = 'tooShort';
+        }
+        if (input.length > maxLength) {
+            status = 'tooLong';
+        }
+        return status;
+    }
+
+    
+    $: quoteValidation = textInputValidator(quote, 10, 1000);
+    $: descriptionValidation = textInputValidator(description, 0, 1200);
+    $: sourceValidation = textInputValidator(source, 1, 100);
+
+    $: {
+        console.log('----------');
+        console.log(quoteValidation);
+        console.log(descriptionValidation);
+        console.log(sourceValidation);
+    }
+
 </script>
 
 <div class='feed-component-outline' id='form-feed-outline'>
     <div id='form-outline'>
         <ul>
             <li>
-                <label for='quote'>Quote:</label>
-                <textarea bind:value={quote} placeholder='The way to get started is to quit talking and begin doing.' cols=40 class='input-fields'></textarea>
+                <textarea bind:value={quote} minlength=10 maxlength=1000 placeholder='Quote (required)' rows=5 cols=40 class='input-fields'></textarea>
+                {#if quote === ''}
+                    <div class='error-message'>Quote is a required field</div>
+                {:else if quoteValidation === 'tooShort'}
+                    <div class='error-message'>Quote is too short (must be at least 10 characters)</div>
+                {:else if quoteValidation === 'tooLong'}
+                    <div class='error-message'>Quote is too long (must be a maximum of 1000 characters)</div>
+                {/if}
             </li>
             <li>
-            <label for='description'>Description:</label>
-                <textarea bind:value={description} placeholder='I like this quote because...' cols=40 class='input-fields'></textarea>
+                <textarea bind:value={description} minlength=10 maxlength=1200 placeholder='Description (optional)' rows=10 cols=40 class='input-fields'></textarea>
+                {#if descriptionValidation === 'tooShort'}
+                    <div class='error-message'>Quote is too short (must be at least 10 characters)</div>
+                {:else if descriptionValidation === 'tooLong'}
+                    <div class='error-message'>Quote is too long (must be a maximum of 1200 characters)</div>
+                {/if}
             </li>
             <li>
-                <label for='source'>Source:</label>
-                <input bind:value={source} class='input-fields' type='text' placeholder='Walt Disney'>
+                <input bind:value={source} minlength=1 maxlength=100 class='input-fields' type='text' placeholder='Source (required)'>
+                {#if source === ''}
+                    <div class='error-message'>Source is a required field</div>
+                {:else if sourceValidation === 'tooShort'}
+                    <div class='error-message'>Source is too short (must be at least 10 characters)</div>
+                {:else if sourceValidation === 'tooLong'}
+                    <div class='error-message'>Source is too long (must be a maximum of 1000 characters)</div>
+                {/if}
             </li>
             <li>
-                <label id='select-label' for='source-type'>Source Type:</label>
-                <select style="text-align:center" bind:value={sourceType} class='input-fields'>
-                    <option value='Movie'>Movie</option>
+                <select bind:value={sourceType}>
+                    <option disabled selected value> -- Select Source Type -- </option>
+                    <option value='Movie' selected>Movie</option>
                     <option value='Book'>Book</option>
                     <option value='TV'>TV Show</option>
                     <option value='Lyric'>Lyric</option>
                 </select>
             </li>
         </ul>
-        <button class='app-buttons' id='submit-button' on:click={addPost}>Add Post</button>
-        <button class='app-buttons' id='cancel-button' on:click={() => dispatch('formFinished')}>Cancel</button>
+        <button class='app-buttons submit-button' id='post-submit-button' style="margin-top:2em" 
+            disabled={!(quoteValidation === 'valid' && sourceValidation === 'valid' && descriptionValidation === 'valid')} on:click={addPost}>Add Post</button>
+        <button class='app-buttons cancel-button' style="margin-top:2em" on:click={() => dispatch('formFinished')}>Cancel</button>
     </div>
 </div>
+
+<style>
+    textarea:invalid, input:invalid {
+        border: 2px solid red;
+    }
+
+    .error-message {
+        display: inline-block;
+        color: #cc0033;
+        font-size: large;
+        margin-top: 0;
+        width: 100%;
+        margin-bottom: 0.5em;
+        text-align: left;
+        margin-left: 0.5em;
+    }
+
+    select {
+        width: 70%;
+        display: inline-block;
+        height: 2em;
+        font-size: x-large;
+        text-align: center;
+        margin-top: 0.5em;
+    }
+
+    #post-submit-button:disabled {
+        background-color: gray;
+    }
+
+</style>
