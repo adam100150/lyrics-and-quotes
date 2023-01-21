@@ -59,14 +59,22 @@
 
 
     {#if savedByCurrUser}
-        <button id='save-button' on:click={() => updateSavedPostStatus('remove')}>
-            <img src='https://cdn-icons-png.flaticon.com/128/3082/3082351.png' alt='save post button pressed'>
+        <button class='post-button' style="position:absolute; top:1em; right:1em;" on:click={() => updateSavedPostStatus('remove')}>
+            <img src='https://cdn-icons-png.flaticon.com/128/3082/3082351.png' width=100% height=100% alt='save post button pressed'>
         </button>
     {:else}
-        <button id='save-button' on:click={() => updateSavedPostStatus('save')}>
-            <img src='https://cdn-icons-png.flaticon.com/128/7131/7131186.png' alt='save post button unpressed'>
+        <button class='post-button' style="position:absolute; top:1em; right:1em;" on:click={() => updateSavedPostStatus('save')}>
+            <img src='https://cdn-icons-png.flaticon.com/128/7131/7131186.png' width=100% height=100% alt='save post button unpressed'>
         </button>
     {/if}
+
+    <button class='post-button' style="position:absolute; top:1em; right:4.5em;" on:click={() => {}}>
+        <img src='https://cdn-icons-png.flaticon.com/512/1159/1159633.png' width=100% height=100% alt='edit button'>
+    </button>
+    
+    <button class='post-button' style="position:absolute; top:1em; right: 8em;" on:click={() => {}}>
+        <img src='https://www.freeiconspng.com/thumbs/trash-can-icon/trash-can-icon-3.png' width=100% height=100% alt='delete button'>
+    </button>
 
     <div id='upvotes-and-downvotes'>
         <button class='rating-buttons' on:click={() => votePost(true)}>
@@ -79,13 +87,15 @@
     </div>
 
     {#if sourceType === 'Book'}
-        <div class='{description === '' ? 'empty-description-tag': 'tag'}' id='book'>Book</div>
+        <div class='{description === '' ? 'empty-description-tag': 'tag'} book'>Book</div>
     {:else if sourceType === 'Movie'}
-        <div class='{description === '' ? 'empty-description-tag': 'tag'}' id='movie'>Movie</div>
+        <div class='{description === '' ? 'empty-description-tag': 'tag'} movie'>Movie</div>
     {:else if sourceType === 'TV'}
-        <div class='{description === '' ? 'empty-description-tag': 'tag'}' id='tv-show'>TV Show</div>
+        <div class='{description === '' ? 'empty-description-tag': 'tag'} tv-show'>TV Show</div>
+    {:else if sourceType === 'Lyric'}
+        <div class='{description === '' ? 'empty-description-tag': 'tag'} lyric'>Lyric</div>
     {:else}
-        <div class='{description === '' ? 'empty-description-tag': 'tag'}' id='lyric'>Lyric</div>
+        <div class='{description === '' ? 'empty-description-tag': 'tag'} real-life'>Real Life</div>
     {/if}
 
     <div>{timestamp}</div>
@@ -98,22 +108,6 @@
     
 </div>
 <style>
-    #save-button {
-        position: absolute;
-        top: 5px;
-        right: 25px;
-        width: 10px;
-        height: 20px;
-        background-color: white;
-        border: none;
-    }
-
-    #save-button img {
-        width: 25px;
-        height: 30px;
-    }
-
-
     #username-outline {
         position: absolute;
         top: 1em;
@@ -153,6 +147,7 @@
         padding-left: 10%;
         text-align: left;
         margin-top: 1em;
+        margin-right: 2%;
     }
 
     #upvotes-and-downvotes {

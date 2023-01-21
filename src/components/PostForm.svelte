@@ -41,8 +41,6 @@
     };
 
 
-
-    //TODO: Finish implementing validation
     function textInputValidator(input: string, minLength: number, maxLength: number) {
         let status: ValidatationStatus = 'valid';    
         if (input.length < minLength) {
@@ -53,18 +51,10 @@
         }
         return status;
     }
-
     
     $: quoteValidation = textInputValidator(quote, 10, 1000);
     $: descriptionValidation = textInputValidator(description, 0, 1200);
     $: sourceValidation = textInputValidator(source, 1, 100);
-
-    $: {
-        console.log('----------');
-        console.log(quoteValidation);
-        console.log(descriptionValidation);
-        console.log(sourceValidation);
-    }
 
 </script>
 
@@ -106,6 +96,7 @@
                     <option value='Book'>Book</option>
                     <option value='TV'>TV Show</option>
                     <option value='Lyric'>Lyric</option>
+                    <option value='RealLife'>Real Life</option>
                 </select>
             </li>
         </ul>
