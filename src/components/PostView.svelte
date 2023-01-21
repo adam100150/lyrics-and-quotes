@@ -57,24 +57,19 @@
         {description}
     </div>
 
-
     {#if savedByCurrUser}
-        <button class='post-button' style="position:absolute; top:1em; right:1em;" on:click={() => updateSavedPostStatus('remove')}>
-            <img src='https://cdn-icons-png.flaticon.com/128/3082/3082351.png' width=100% height=100% alt='save post button pressed'>
-        </button>
+        <button class='post-button' style="background: url(https://cdn-icons-png.flaticon.com/128/3082/3082351.png) no-repeat; background-size:100%; position:absolute; top:1vh; right:0.5vw;" 
+        on:click={() => updateSavedPostStatus('remove')}></button>
     {:else}
-        <button class='post-button' style="position:absolute; top:1em; right:1em;" on:click={() => updateSavedPostStatus('save')}>
-            <img src='https://cdn-icons-png.flaticon.com/128/7131/7131186.png' width=100% height=100% alt='save post button unpressed'>
-        </button>
+        <button class='post-button' style="background: url(https://cdn-icons-png.flaticon.com/128/7131/7131186.png) no-repeat; background-size:100%; position:absolute; top:1vh; right:0.5vw;" 
+        on:click={() => updateSavedPostStatus('save')}></button>
     {/if}
 
-    <button class='post-button' style="position:absolute; top:1em; right:4.5em;" on:click={() => {}}>
-        <img src='https://cdn-icons-png.flaticon.com/512/1159/1159633.png' width=100% height=100% alt='edit button'>
-    </button>
+    <button class='post-button' style="background: url(https://cdn-icons-png.flaticon.com/512/1159/1159633.png) no-repeat; background-size:100%; position:absolute; top:1vh; right:3.5vw;"
+    on:click={() => {}}></button>
     
-    <button class='post-button' style="position:absolute; top:1em; right: 8em;" on:click={() => {}}>
-        <img src='https://www.freeiconspng.com/thumbs/trash-can-icon/trash-can-icon-3.png' width=100% height=100% alt='delete button'>
-    </button>
+    <button class='post-button' style="background: url(https://www.freeiconspng.com/thumbs/trash-can-icon/trash-can-icon-3.png) no-repeat; background-size:100%; position:absolute; position:absolute; top:1vh; right: 6.5vw;"
+    on:click={() => {}}></button>
 
     <div id='upvotes-and-downvotes'>
         <button class='rating-buttons' on:click={() => votePost(true)}>

@@ -123,11 +123,11 @@ textarea {
 }
 
 .post-button {
-  width: 5.5%;
-  height: 3em;
-  background: none;
+  width: 2vw;
+  height: 4.7vh;
   border: none;
   margin: 0;
+  cursor: pointer;
 }
 
 #form-outline {
