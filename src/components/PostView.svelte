@@ -29,7 +29,8 @@
 
             dispatch('votePostEvent', {
                 'postID': postID,
-                'newScore': newScore
+                'newScore': newScore,
+                'upvote': upvotePost
             });
         } else {
             console.log('User already voted on this post');
@@ -45,7 +46,6 @@
     }
 
     let showComments: boolean = false;
-    $: console.log(userVoted);
 </script>
 
 <div class='feed-component-outline'>
