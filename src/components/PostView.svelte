@@ -1,6 +1,5 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import { empty } from 'svelte/internal';
     import Comments from './Comments.svelte';
 
     export let description: string;
@@ -16,20 +15,26 @@
 
     const dispatch = createEventDispatcher();
 
-
+    let userVoted: boolean = false;
     function votePost (upvotePost: Boolean) {
-        console.log(`User is ${upvotePost ? 'upvoting' : 'downvoting'} post with id ${postID}`);
-        let newScore: number;
-        if (upvotePost) {
-            newScore = score + 1;
-        } else {
-            newScore = score - 1;
-        }
+        if (!userVoted) {
+            console.log(`User is ${upvotePost ? 'upvoting' : 'downvoting'} post with id ${postID}`);
+            userVoted = true;
+            let newScore: number;
+            if (upvotePost) {
+                newScore = score + 1;
+            } else {
+                newScore = score - 1;
+            }
 
-        dispatch('votePostEvent', {
-            'postID': postID,
-            'newScore': newScore
-        });
+            dispatch('votePostEvent', {
+                'postID': postID,
+                'newScore': newScore,
+                'upvote': upvotePost
+            });
+        } else {
+            console.log('User already voted on this post');
+        }
     }
 
 
@@ -41,7 +46,6 @@
     }
 
     let showComments: boolean = false;
-
 </script>
 
 <div class='feed-component-outline'>
@@ -57,35 +61,36 @@
         {description}
     </div>
 
-
     {#if savedByCurrUser}
-        <button id='save-button' on:click={() => updateSavedPostStatus('remove')}>
-            <img src='https://cdn-icons-png.flaticon.com/128/3082/3082351.png' alt='save post button pressed'>
-        </button>
+        <button class='post-button' style="background: url(https://cdn-icons-png.flaticon.com/128/3082/3082351.png) no-repeat; background-size:100%; position:absolute; top:1vh; right:0.5vw;" 
+        on:click={() => updateSavedPostStatus('remove')}></button>
     {:else}
-        <button id='save-button' on:click={() => updateSavedPostStatus('save')}>
-            <img src='https://cdn-icons-png.flaticon.com/128/7131/7131186.png' alt='save post button unpressed'>
-        </button>
+        <button class='post-button' style="background: url(https://cdn-icons-png.flaticon.com/128/7131/7131186.png) no-repeat; background-size:100%; position:absolute; top:1vh; right:0.5vw;" 
+        on:click={() => updateSavedPostStatus('save')}></button>
     {/if}
 
+    <button class='post-button' style="background: url(https://cdn-icons-png.flaticon.com/512/1159/1159633.png) no-repeat; background-size:100%; position:absolute; top:1vh; right:3.5vw;"
+    on:click={() => {}}></button>
+    
+    <button class='post-button' style="background: url(https://www.freeiconspng.com/thumbs/trash-can-icon/trash-can-icon-3.png) no-repeat; background-size:100%; position:absolute; position:absolute; top:1vh; right: 6.5vw;"
+    on:click={() => {}}></button>
+
     <div id='upvotes-and-downvotes'>
-        <button class='rating-buttons' on:click={() => votePost(true)}>
-            <img src='https://cdn-icons-png.flaticon.com/512/2989/2989972.png' alt='up arrow'>
-        </button>
+        <button class='rating-buttons' id='upvote-button' disabled={userVoted} on:click={() => votePost(true)}></button>
         <div id='score'>{score}</div>
-        <button class='rating-buttons' on:click={() => votePost(false)}>
-            <img src='https://cdn-icons-png.flaticon.com/512/2989/2989995.png' height='30%' alt='down arrow'>
-        </button>
+        <button class='rating-buttons' id='downvote-button' disabled={userVoted} on:click={() => votePost(false)}></button>
     </div>
 
     {#if sourceType === 'Book'}
-        <div class='{description === '' ? 'empty-description-tag': 'tag'}' id='book'>Book</div>
+        <div class='{description === '' ? 'empty-description-tag': 'tag'} book'>Book</div>
     {:else if sourceType === 'Movie'}
-        <div class='{description === '' ? 'empty-description-tag': 'tag'}' id='movie'>Movie</div>
+        <div class='{description === '' ? 'empty-description-tag': 'tag'} movie'>Movie</div>
     {:else if sourceType === 'TV'}
-        <div class='{description === '' ? 'empty-description-tag': 'tag'}' id='tv-show'>TV Show</div>
+        <div class='{description === '' ? 'empty-description-tag': 'tag'} tv-show'>TV Show</div>
+    {:else if sourceType === 'Lyric'}
+        <div class='{description === '' ? 'empty-description-tag': 'tag'} lyric'>Lyric</div>
     {:else}
-        <div class='{description === '' ? 'empty-description-tag': 'tag'}' id='lyric'>Lyric</div>
+        <div class='{description === '' ? 'empty-description-tag': 'tag'} real-life'>Real Life</div>
     {/if}
 
     <div>{timestamp}</div>
@@ -98,22 +103,6 @@
     
 </div>
 <style>
-    #save-button {
-        position: absolute;
-        top: 5px;
-        right: 25px;
-        width: 10px;
-        height: 20px;
-        background-color: white;
-        border: none;
-    }
-
-    #save-button img {
-        width: 25px;
-        height: 30px;
-    }
-
-
     #username-outline {
         position: absolute;
         top: 1em;
@@ -153,6 +142,7 @@
         padding-left: 10%;
         text-align: left;
         margin-top: 1em;
+        margin-right: 2%;
     }
 
     #upvotes-and-downvotes {
@@ -172,14 +162,30 @@
         margin-top: 4em;
     }
 
-    .rating-buttons img {
-        height: 80%;
-        width: 70%;
+    .rating-buttons {
+        cursor: pointer;
+        width: 3em;
+        height: 4.5em;
+        border: none;
     }
 
-    .rating-buttons {
-        height: 50%;
-        background: none;
-        border: none;
+    #upvote-button {
+        margin-left: 0.2em;
+        background: url('../images/upvote-button-unpressed.png') no-repeat; 
+        background-size: 85%;
+    }
+
+    #upvote-button:disabled {
+        cursor: default;
+    }
+
+    #downvote-button {
+        margin-left: 0.2em;
+        background: url('../images/downvote-button-unpressed.png') no-repeat; 
+        background-size: 85%;
+    }
+
+    #downvote-button:disabled {
+        cursor: default;
     }
 </style>

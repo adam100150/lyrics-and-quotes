@@ -4,18 +4,26 @@
     import PostView from './PostView.svelte';
     import { postsRef, filterWritable } from '../stores';
     import type { Post } from '../types';
+    import { user } from 'rxfire/auth';
     
     export let userID: string;
 
     function handleVotePost(event) {
+
         const currentPostRef = ref(db, `/posts/${event.detail.postID}`);
-        
         let updates = {
             'score': event.detail.newScore,
-            usersVoted: {
-                [userID]: true
-            }
         };
+
+        if (event.detail.upvotePost) {
+            updates['usersUpvoted'] = {
+                [userID]: true
+            };
+        } else {
+            updates['usersDownvoted'] = {
+                [userID]: true
+            };
+        }
         update(currentPostRef, updates);
     }
 
