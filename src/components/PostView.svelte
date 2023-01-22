@@ -1,6 +1,5 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-    import { empty } from 'svelte/internal';
     import Comments from './Comments.svelte';
 
     export let description: string;
@@ -16,20 +15,25 @@
 
     const dispatch = createEventDispatcher();
 
-
+    let userVoted: boolean = false;
     function votePost (upvotePost: Boolean) {
-        console.log(`User is ${upvotePost ? 'upvoting' : 'downvoting'} post with id ${postID}`);
-        let newScore: number;
-        if (upvotePost) {
-            newScore = score + 1;
-        } else {
-            newScore = score - 1;
-        }
+        if (!userVoted) {
+            console.log(`User is ${upvotePost ? 'upvoting' : 'downvoting'} post with id ${postID}`);
+            userVoted = true;
+            let newScore: number;
+            if (upvotePost) {
+                newScore = score + 1;
+            } else {
+                newScore = score - 1;
+            }
 
-        dispatch('votePostEvent', {
-            'postID': postID,
-            'newScore': newScore
-        });
+            dispatch('votePostEvent', {
+                'postID': postID,
+                'newScore': newScore
+            });
+        } else {
+            console.log('User already voted on this post');
+        }
     }
 
 
@@ -41,7 +45,7 @@
     }
 
     let showComments: boolean = false;
-
+    $: console.log(userVoted);
 </script>
 
 <div class='feed-component-outline'>
@@ -72,13 +76,9 @@
     on:click={() => {}}></button>
 
     <div id='upvotes-and-downvotes'>
-        <button class='rating-buttons' on:click={() => votePost(true)}>
-            <img src='https://cdn-icons-png.flaticon.com/512/2989/2989972.png' alt='up arrow'>
-        </button>
+        <button class='rating-buttons' id='upvote-button' disabled={userVoted} on:click={() => votePost(true)}></button>
         <div id='score'>{score}</div>
-        <button class='rating-buttons' on:click={() => votePost(false)}>
-            <img src='https://cdn-icons-png.flaticon.com/512/2989/2989995.png' height='30%' alt='down arrow'>
-        </button>
+        <button class='rating-buttons' id='downvote-button' disabled={userVoted} on:click={() => votePost(false)}></button>
     </div>
 
     {#if sourceType === 'Book'}
@@ -162,14 +162,30 @@
         margin-top: 4em;
     }
 
-    .rating-buttons img {
-        height: 80%;
-        width: 70%;
+    .rating-buttons {
+        cursor: pointer;
+        width: 3em;
+        height: 4.5em;
+        border: none;
     }
 
-    .rating-buttons {
-        height: 50%;
-        background: none;
-        border: none;
+    #upvote-button {
+        margin-left: 0.2em;
+        background: url('../images/upvote-button-unpressed.png') no-repeat; 
+        background-size: 85%;
+    }
+
+    #upvote-button:disabled {
+        cursor: default;
+    }
+
+    #downvote-button {
+        margin-left: 0.2em;
+        background: url('../images/downvote-button-unpressed.png') no-repeat; 
+        background-size: 85%;
+    }
+
+    #downvote-button:disabled {
+        cursor: default;
     }
 </style>
