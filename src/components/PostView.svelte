@@ -1,5 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
+    import type { voteStatus } from '../types';
     import Comments from './Comments.svelte';
 
     export let description: string;
@@ -12,29 +13,24 @@
     export let ownerUserImageURL: string;
     export let ownerUsername: string;
     export let savedByCurrUser: boolean;
+    export let votedByCurrUser: voteStatus;
 
     const dispatch = createEventDispatcher();
 
-    let userVoted: boolean = false;
     function votePost (upvotePost: Boolean) {
-        if (!userVoted) {
-            console.log(`User is ${upvotePost ? 'upvoting' : 'downvoting'} post with id ${postID}`);
-            userVoted = true;
-            let newScore: number;
-            if (upvotePost) {
-                newScore = score + 1;
-            } else {
-                newScore = score - 1;
-            }
-
-            dispatch('votePostEvent', {
-                'postID': postID,
-                'newScore': newScore,
-                'upvote': upvotePost
-            });
+        console.log(`User is ${upvotePost ? 'upvoting' : 'downvoting'} post with id ${postID}`);
+        let newScore: number;
+        if (upvotePost) {
+            newScore = score + 1;
         } else {
-            console.log('User already voted on this post');
+            newScore = score - 1;
         }
+
+        dispatch('votePostEvent', {
+            'postID': postID,
+            'newScore': newScore,
+            'upvote': upvotePost
+        });
     }
 
 
@@ -76,9 +72,9 @@
     on:click={() => {}}></button>
 
     <div id='upvotes-and-downvotes'>
-        <button class='rating-buttons' id='upvote-button' disabled={userVoted} on:click={() => votePost(true)}></button>
+        <button class='rating-buttons {votedByCurrUser === 'upvote' ? 'upvote-button-pressed' : 'upvote-button-unpressed'}' disabled={votedByCurrUser !== 'noVote'} on:click={() => votePost(true)}></button>
         <div id='score'>{score}</div>
-        <button class='rating-buttons' id='downvote-button' disabled={userVoted} on:click={() => votePost(false)}></button>
+        <button class='rating-buttons {votedByCurrUser === 'downvote' ? 'downvote-button-pressed' : 'downvote-button-unpressed'}' disabled={votedByCurrUser !== 'noVote'} on:click={() => votePost(false)}></button>
     </div>
 
     {#if sourceType === 'Book'}
@@ -103,6 +99,7 @@
     
 </div>
 <style>
+    /* Profile styling */
     #username-outline {
         position: absolute;
         top: 1em;
@@ -121,6 +118,7 @@
         border-radius: 50%;
     }
 
+    /* Quote content styling */
     #quote-block {
         margin-top: 4em;
         padding-left: 8%;
@@ -145,6 +143,13 @@
         margin-right: 2%;
     }
 
+
+    .empty-description-tag {
+        margin-top: 4em;
+    }
+
+
+    /* Upvotes and downvotes block styling */
     #upvotes-and-downvotes {
         position: absolute;  
         top: 4.5em;
@@ -158,10 +163,8 @@
         font-size: x-large;
     }
 
-    .empty-description-tag {
-        margin-top: 4em;
-    }
-
+    
+    /* Rating buttons styling */
     .rating-buttons {
         cursor: pointer;
         width: 3em;
@@ -169,23 +172,31 @@
         border: none;
     }
 
-    #upvote-button {
+    .rating-buttons:disabled {
+        cursor: default;
+    }
+
+    .upvote-button-unpressed {
         margin-left: 0.2em;
         background: url('../images/upvote-button-unpressed.png') no-repeat; 
         background-size: 85%;
     }
 
-    #upvote-button:disabled {
-        cursor: default;
+    .upvote-button-pressed {
+        margin-left: 0.2em;
+        background: url('../images/upvote-button-pressed.png') no-repeat; 
+        background-size: 85%;
     }
 
-    #downvote-button {
+    .downvote-button-unpressed {
         margin-left: 0.2em;
         background: url('../images/downvote-button-unpressed.png') no-repeat; 
         background-size: 85%;
     }
 
-    #downvote-button:disabled {
-        cursor: default;
+    .downvote-button-pressed {
+        margin-left: 0.2em;
+        background: url('../images/downvote-button-pressed.png') no-repeat; 
+        background-size: 85%;
     }
 </style>

@@ -17,6 +17,7 @@ export type Post = {
     ownerUsername: string;
     ownerUserImageURL: string;
     savedByCurrUser: boolean;
+    votedByCurrUser: voteStatus;
 }
 
 export type Filter = {
@@ -30,3 +31,4 @@ export type User = {
 }
 
 export type ValidatationStatus = 'tooShort' | 'tooLong' | 'valid';
+export type voteStatus = 'noVote' | 'downvote' | 'upvote';

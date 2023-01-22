@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { db } from '../database/firebase';
+    import { auth, db } from '../database/firebase';
     import { ref, onValue, update, remove, get } from 'firebase/database'
     import PostView from './PostView.svelte';
     import { postsRef, filterWritable } from '../stores';
@@ -9,13 +9,12 @@
     export let userID: string;
 
     function handleVotePost(event) {
-
         const currentPostRef = ref(db, `/posts/${event.detail.postID}`);
         let updates = {
             'score': event.detail.newScore,
         };
 
-        if (event.detail.upvotePost) {
+        if (event.detail.upvote) {
             updates['usersUpvoted'] = {
                 [userID]: true
             };
@@ -49,13 +48,29 @@
     $: {
         containsSavedQuotes = false;
         postViewDataEntries = [];
+
         // Getting all posts data
         onValue($postsRef, (snapshot) => {  
             let postDataList: Array<Post> = [];
+            
             // For each post
             snapshot.forEach((childSnapshot) => {
+                // Add the postID to the post data
                 let postEntry = childSnapshot.val();
                 postEntry['postID'] = childSnapshot.key;
+                
+                // Check the voting status of the current user on this post and add it to post data
+                if (postEntry.hasOwnProperty('usersUpvoted') && postEntry['usersUpvoted'].hasOwnProperty(userID)) {
+                    postEntry['votedByCurrUser'] = 'upvote';
+                    delete postEntry['usersUpvoted'];
+                } else if (postEntry.hasOwnProperty('usersDownvoted') && postEntry['usersDownvoted'].hasOwnProperty(userID)) {
+                    postEntry['votedByCurrUser'] = 'downvote';
+                    delete postEntry['usersDownvoted'];
+                } else {
+                    postEntry['votedByCurrUser'] = 'noVote';
+                }
+
+                // Check if post is saved by current user
                 const userSavedPostsRef = ref(db, `users/${userID}`);
                 onValue(userSavedPostsRef, (snapshot) => {
                     let newPostEntry = postEntry;
